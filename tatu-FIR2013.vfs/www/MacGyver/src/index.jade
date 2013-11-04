@@ -1,0 +1,329 @@
+extends layout
+
+block append header
+  #header.macgyver-head
+    h1.hero MacGyver
+
+    ul.macgyver-links
+      li: a(href="https://github.com/StartTheShift/MacGyver") Github project
+      li: a(href="https://github.com/StartTheShift/MacGyver/issues") Issues
+      li Version 0.1.2
+
+    .github-info
+      ul
+        li
+          iframe(
+            src = "http://ghbtns.com/github-btn.html?user=StartTheShift&repo=MacGyver&type=watch&count=true"
+            allowtransparency = "true"
+            frameborder = "0"
+            scrolling = "0"
+            width = "110"
+            height = "20"
+          )
+        li
+          iframe(
+            src = "http://ghbtns.com/github-btn.html?user=StartTheShift&repo=MacGyver&type=fork&count=true"
+            allowtransparency = "true"
+            frameborder = "0"
+            scrolling = "0"
+            width = "95"
+            height = "20"
+          )
+
+block append content
+  .row.content
+    #nav.span3
+      ul.nav.nav-list.docs-sidenav(
+        data-spy           = "affix"
+        data-offset-top    = "298"
+      )
+        li: a(href="#modal")
+          i.icon-chevron-right
+          | Modal
+        li: a(href="#tooltip")
+          i.icon-chevron-right
+          | Tooltip
+        li: a(href="#menu")
+          i.icon-chevron-right
+          | Menu
+        li: a(href="#autocomplete")
+          i.icon-chevron-right
+          | Autocomplete
+        li: a(href="#tag-autocomplete")
+          i.icon-chevron-right
+          | Tag Autocomplete
+        li: a(href="#datepicker")
+          i.icon-chevron-right
+          | Date Picker
+        li: a(href="#time-input")
+          i.icon-chevron-right
+          | Time Input
+        li: a(href='#tag-input')
+          i.icon-chevron-right
+          | Tag Input
+        li: a(href='#spinner')
+          i.icon-chevron-right
+          | Spinner
+        li: a(href="#file-upload")
+          i.icon-chevron-right
+          | File Upload
+        li: a(href="#placeholder")
+          i.icon-chevron-right
+          | Placeholder
+
+    #example.span9(ng-controller='ExampleController')
+      section#modal
+        @@include("docs/html/services/modal.html")
+        @@include("docs/html/directives/modal.html")
+        h3 Example
+        .docs-example
+          mac-modal#test-modal(
+            mac-modal-keyboard
+          )
+            .modal-content(ng-controller="modalController")
+              h1 Just another modal
+          button.btn(
+            mac-modal         = "test-modal"
+            mac-modal-content = "macGyverSeasonOne"
+          ) Show Modal
+        pre.prettyprint.linenums(ng-non-bindable)
+          = '<mac-modal id="test-modal" mac-modal-keyboard>\n'
+          = '  <div ng-controller="modalController" class="modal-content">\n'
+          = '    <h1>Just another modal</h1>\n'
+          = '  </div>\n'
+          = '</mac-modal>\n'
+          = '<button mac-modal="test-modal" mac-modal-content="maGyverSeasonOne" class="btn">Show Modal</button>\n'
+
+      section#tooltip
+        @@include("docs/html/directives/tooltip.html")
+        h3 Example
+        .docs-example
+          ul.nav.nav-pills
+            li: a(href="#", mac-tooltip="Tooltip on top") Tooltip on top
+            li: a(href="#", mac-tooltip="Tooltip on bottom", mac-tooltip-direction="bottom") Tooltip on bottom
+            li: a(href="#", mac-tooltip="Tooltip on left", mac-tooltip-direction="left") Tooltip on left
+            li: a(href="#", mac-tooltip="Tooltip on right", mac-tooltip-direction="right") Tooltip on right
+        pre.prettyprint.linenums(ng-non-bindable)
+          = '<a href="#" mac-tooltip="Tooltip on bottom" mac-tooltip-direction="bottom">Tooltip on bottom</a>'
+
+      section#menu
+        @@include("docs/html/directives/menu.html")
+        h3 Example
+        .docs-example
+          mac-menu
+
+      section#autocomplete
+        @@include("docs/html/directives/autocomplete.html")
+        h3 Example
+        .docs-example
+          mac-autocomplete(
+            mac-autocomplete-url        = "autocompleteUrl"
+            mac-autocomplete-query      = "q"
+            mac-autocomplete-on-success = "onSuccess(data)"
+            mac-placeholder             = "'Autocomplete'"
+            ng-model                    = "autocompleteQuery"
+          )
+        pre.prettyprint.linenums(ng-non-bindable)
+          = '<mac-autocomplete\n'
+          = '  mac-autocomplete-url="autocompleteUrl"\n'
+          = '  mac-autocomplete-query="q"\n'
+          = '  mac-autocomplete-on-success="onSuccess(data)"\n'
+          = '  mac-autocomplete-placeholder="\'Autocomplete\'">\n'
+          = '</mac-autocomplete>\n'
+
+        h3 Example with autocomplete using source
+        .docs-example
+          mac-autocomplete(
+            mac-autocomplete-source = "['hello', 'world']"
+            ng-model                = "autocompleteSourceQuery"
+            mac-placeholder         = "'Type something...'"
+          )
+        pre.prettyprint.linenums(ng-non-bindable)
+          = '<mac-autocomplete\n'
+          = '  mac-autocomplete-source="[\'hello\', \'world\']"\n'
+          = '  mac-autocomplete-placeholder="\'Autocomplete\'">\n'
+          = '</mac-autocomplete>\n'
+
+      section#tag-autocomplete
+        @@include("docs/html/directives/tag_autocomplete.html")
+        h3 Example
+        .docs-example
+          mac-tag-autocomplete(
+            mac-tag-autocomplete-url         = "autocompleteUrl"
+            mac-tag-autocomplete-query       = "q"
+            mac-tag-autocomplete-selected    = "tagAutocompleteSelected"
+            mac-tag-autocomplete-value       = "id"
+            mac-tag-autocomplete-label       = "name"
+            mac-tag-autocomplete-placeholder = "tagAutocompletePlaceholder"
+            mac-tag-autocomplete-model       = "tagAutocompleteModel"
+          )
+        pre.prettyprint.linenums(ng-non-bindable)
+          = '<mac-autocomplete\n'
+          = '  mac-autocomplete-url="autocompleteUrl"\n'
+          = '  mac-autocomplete-query="q"\n'
+          = '  mac-autocomplete-on-success="onSuccess(data)"\n'
+          = '  mac-autocomplete-placeholder="\'Autocomplete\'"\n'
+          = '  mac-autocomplete-model="tagAutocompleteModel">\n'
+          = '</mac-autocomplete>\n'
+
+        h3 Example with autocomplete disabled
+        .docs-example
+          mac-tag-autocomplete(
+            mac-tag-autocomplete-selected    = "tagAutocompleteDisabledSelected"
+            mac-tag-autocomplete-placeholder = "tagAutocompletePlaceholder"
+            mac-tag-autocomplete-value       = ""
+            mac-tag-autocomplete-label       = ""
+            mac-tag-autocomplete-disabled    = "true"
+          )
+        pre.prettyprint.linenums(ng-non-bindable)
+          = '<mac-tag-autocomplete\n'
+          = '  mac-tag-autocomplete-selected="tagAutocompleteDisabledSelected"\n'
+          = '  mac-tag-autocomplete-placeholder="tagAutocompletePlaceholder"\n'
+          = '  mac-tag-autocomplete-value=""\n'
+          = '  mac-tag-autocomplete-label=""\n'
+          = '  mac-tag-autocomplete-disabled="true">\n'
+          = '</mac-tag-autocomplete>\n'
+
+        h3 Example with custom actions on events
+        .docs-example
+          mac-tag-autocomplete(
+            mac-tag-autocomplete-selected    = "tagAutocompleteEvents"
+            mac-tag-autocomplete-placeholder = "tagAutocompletePlaceholder"
+            mac-tag-autocomplete-value       = "key"
+            mac-tag-autocomplete-label       = "key"
+            mac-tag-autocomplete-on-enter    = "tagAutocompleteOnSelected(item)"
+            mac-tag-autocomplete-events      = "blur,keyup"
+            mac-tag-autocomplete-on-blur     = "tagAutocompleteOnBlur($event, item)"
+            mac-tag-autocomplete-on-keyup    = "tagAutocompleteOnKeyup()"
+            mac-tag-autocomplete-disabled    = "true"
+            mac-tag-autocomplete-model       = "tagAutocompleteModel"
+          )
+        pre.prettyprint.linenums(ng-non-bindable)
+          = '<mac-tag-autocomplete\n'
+          = '  mac-tag-autocomplete-selected="tagAutocompleteEvents"\n'
+          = '  mac-tag-autocomplete-placeholder="tagAutocompletePlaceholder"\n'
+          = '  mac-tag-autocomplete-value="key"\n'
+          = '  mac-tag-autocomplete-label="key"\n'
+          = '  mac-tag-autocomplete-on-enter="tagAutocompleteOnSelected(item)"\n'
+          = '  mac-tag-autocomplete-events="blur,keyup"\n'
+          = '  mac-tag-autocomplete-on-blur="tagAutocompleteOnBlur($event, item)"\n'
+          = '  mac-tag-autocomplete-on-keyup="tagAutocompleteOnKeyup()"\n'
+          = '  mac-tag-autocomplete-disabled="true"\n'
+          = '  mac-tag-autocomplete-model="tagAutocompleteModel">\n'
+          = '</mac-tag-autocomplete>\n'
+
+      section#datepicker
+        @@include("docs/html/directives/datepicker.html")
+        h3 Example
+        .docs-example
+          mac-datepicker(
+            mac-datepicker-id       = "input-start-date"
+            mac-datepicker-model    = "startDate"
+            mac-datepicker-min-date = "minDate"
+          )
+        pre.prettyprint.linenums(ng-non-bindable)
+          = '<mac-datepicker mac-datepicker-id="input-start-date" mac-datepicker-model="startDate"></mac-datepicker>'
+
+      section#time-input
+        @@include("docs/html/directives/time.html")
+        h3 Example
+        .docs-example
+          mac-time(
+            mac-time-id      = "input-start-time"
+            mac-time-model   = "myStartTime"
+            mac-time-default = "11:59 PM"
+          )
+        pre.prettyprint.linenums(ng-non-bindable)
+          = '<mac-time\n'
+          = '  mac-time-id="input-start-time"\n'
+          = '  mac-time-model="myStartTime"\n'
+          = '  mac-time-default="11:59 PM">\n'
+          = '</mac-time>\n'
+
+      section#tag-input
+        @@include("docs/html/directives/tag_input.html")
+        p Proxy directive to mac tag autocomplete
+        h3 Example
+        .docs-example
+          mac-tag-input(
+            mac-tag-input-tags        = "extraTagInputs"
+            mac-tag-input-placeholder = "Select all target countries"
+            mac-tag-input-selected    = "selected"
+            mac-tag-input-value       = "id"
+            mac-tag-input-label       = "name"
+          )
+        pre.prettyprint.linenums(ng-non-bindable)
+          = '<mac-tag-input\n'
+          = '  mac-tag-input-tags="extraTagInputs"\n'
+          = '  mac-tag-input-placeholder="Select all target countries"\n'
+          = '  mac-tag-input-selected="selected"\n'
+          = '  mac-tag-input-value="id"\n'
+          = '  mac-tag-input-label="name">\n'
+          = '</mac-tag-input>\n'
+
+      section#spinner
+        @@include("docs/html/directives/spinner.html")
+        h3 Example
+        .docs-example
+          mac-spinner
+        pre.prettyprint.linenums(ng-non-bindable)
+          = '<mac-spinner></mac-spinner>'
+
+      section#file-upload
+        @@include("docs/html/directives/file_upload.html")
+        h3 Example
+        .docs-example.example-hit-area
+          form(action="...", method="post", enctype="multipart/form-data", name="upload-example")
+            span.mac-upload.btn.fileinput-button
+              span Upload
+              input(
+                type                 = "file"
+                name                 = "files[]"
+                multiple
+                mac-upload
+                ng-disabled          = "!fileUploaderEnabled"
+                mac-upload-route     = "uploadRoute"
+                mac-upload-success   = "fileUploadSuccess($data, $status)"
+                mac-upload-error     = "fileUploadError($response, $data, $status)"
+                mac-upload-submit    = "fileUploadSubmit($event, $data)"
+                mac-upload-drop-zone = ".example-hit-area"
+                mac-upload-previews  = "uploadPreviews"
+                mac-upload-progress
+              )
+          ul
+            li(ng-repeat="preview in uploadPreviews")
+              img(ng-src="{{previewImage(preview)}}")
+              span {{preview.fileName}}
+              .progress
+                .bar(ng-style='{{previewProgress(preview)}}')
+
+        pre.prettyprint.linenums(ng-non-bindable)
+          = '<input type="file"\n'
+          = '  name="files[]"\n'
+          = '  ng-disabled="!fileUploaderEnabled"\n'
+          = '  multiple="multiple"\n'
+          = '  mac-upload="mac-upload"\n'
+          = '  mac-upload-route="uploadRoute"\n'
+          = '  mac-upload-success="fileUploadSuccess($data, $status)"\n'
+          = '  mac-upload-error="fileUploadError($response, $data, $status)"\n'
+          = '  mac-upload-submit="fileUploadSubmit($event, $data)"\n'
+          = '  mac-upload-drop-zone=".example-hit-area"\n'
+          = '  mac-upload-previews="uploadPreviews"\n'
+          = '  mac-upload-progress/>\n'
+          = '<ul>\n'
+          = '  <li ng-repeat="preview in uploadPreviews">\n'
+          = '    <img ng-src="{{previewImage(preview)}}"/>\n'
+          = '    <span>{{preview.fileName}}</span>\n'
+          = '    <div class="progress">\n'
+          = '      <div ng-style="{{previewProgress(preview)}}" class="bar"></div>\n'
+          = '    </div>\n'
+          = '  </li>\n'
+          = '</ul>\n'
+
+      section#placeholder
+        @@include("docs/html/directives/placeholder.html")
+        h3 Example
+        .docs-example
+          input(type="text", mac-placeholder="tagAutocompletePlaceholder")
+        pre.prettyprint.linenums(ng-non-bindable)
+          = '<input type="text" mac-placeholder="placeholderVariable">'

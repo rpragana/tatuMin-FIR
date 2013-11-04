@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Bootstrap, from Twitter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+	<link href="css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
+	
+	<link href="css/jqueryFileTree.css" type="text/css" rel="stylesheet" />
+    <link href="css/jquery.contextMenu.css" rel="stylesheet" type="text/css" />
+	
+	<style>
+			.demo {
+				width: 25%;
+				height: 500px;
+				border-top: solid 1px #BBB;
+				border-left: solid 1px #BBB;
+				border-bottom: solid 1px #FFF;
+				border-right: solid 1px #FFF;
+				background: #FFF;
+				overflow: scroll;
+				padding: 5px;
+				
+				float: left;	
+			}
+
+			.editor-wrapper {
+					float: right;
+					width: 73%;
+			}			
+			#editArea {
+				height: 500px; 
+				width: 100%;
+			}
+		</style>
+
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+	
+	<link rel="stylesheet" href="css/font-awesome.css">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="../assets/ico/favicon.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">Project name</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li class="nav-header">Nav header</li>
+                  <li><a href="#">Separated link</a></li>
+                  <li><a href="#">One more separated link</a></li>
+                </ul>
+              </li>
+            </ul>
+            <form class="navbar-form pull-right">
+              <input class="span2" type="text" placeholder="Email">
+              <input class="span2" type="password" placeholder="Password">
+              <button type="submit" class="btn">Sign in</button>
+            </form>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+	<!-- file browser and editor -->	
+	<div class="filetree context-menu demo">
+	</div>
+
+	<div class="editor-wrapper">
+		<textarea id="editArea" style="height: 500px; width: 100%;" 
+				name="test_1">area usada para edição de arquivos
+		</textarea>
+	</div>
+
+
+      </div>
+
+      <hr>
+
+      <footer>
+        <p>&copy; Rildo Pragana &#x2015; 2013</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap-transition.js"></script>
+    <script src="js/bootstrap-alert.js"></script>
+    <script src="js/bootstrap-modal.js"></script>
+    <script src="js/bootstrap-dropdown.js"></script>
+    <script src="js/bootstrap-scrollspy.js"></script>
+    <script src="js/bootstrap-tab.js"></script>
+    <script src="js/bootstrap-tooltip.js"></script>
+    <script src="js/bootstrap-popover.js"></script>
+    <script src="js/bootstrap-button.js"></script>
+    <script src="js/bootstrap-collapse.js"></script>
+    <script src="js/bootstrap-carousel.js"></script>
+    <script src="js/bootstrap-typeahead.js"></script>
+	
+	<script src="js/jquery.ui.position.js"></script>
+	<script src="js/jquery.contextMenu.js"></script>
+	<script src="js/underscore.js"></script>
+	<script src="js/backbone.js"></script>
+	<script src="js/mustache.js"></script>
+	<script src="js/jqueryFileTree.js"></script>
+	<script src="js/edit_area_full.js"></script>
+	
+<script>
+	var fileSave;	
+	var trSel;
+	var currDir;
+	window.onbeforeunload = function(){ 
+		return "Isso irá descartar a edição em curso!"; 
+	};	
+	$(document).ready(function(){
+		var x,y;
+
+		$('.filetree').mousemove(function(e){
+			x = e.pageX;
+			y = e.pageY;
+		});
+		$('.filetree').fileTree({
+				root: '',
+				script: '/filetree'
+		},function(file){
+			trSel = file;	
+			$('.context-menu').contextMenu({x: x, y: y});
+			//alert(file);
+		},function(dir){
+			currDir = dir;
+			//alert("changed dir="+dir);
+		});
+		//console.log("FileTree setup done!");
+		
+		$.contextMenu({
+			selector: '.context-menu', 
+			//trigger: 'left',
+			callback: function(key, options) {
+				var m = "clicked: " + key;
+				//window.console && console.log(m) || alert(m); 
+				//console.log(m+" --> "+trSel); 
+				//alert(key+" --> "+trSel); 
+				//if (trSel == undefined) {
+				//	alert("???");
+				//	return;
+				//}
+				switch (key) {	
+				case "edit":		
+					var url = '/filetr?path='+encodeURIComponent(trSel);
+					$.get(url)
+					.done(function(data){
+						console.log('EDIT:'+data);	
+						var components = trSel.split("/");
+						var fn = components[components.length-1];
+						editAreaLoader.openFile("editArea", 
+							{id: trSel, title: fn});
+						editAreaLoader.setValue("editArea",data.replace(/\r/g,""));
+					});
+					break;
+				case "new":
+					var url="/filetr";
+					$.ajax({url: url,
+						type: "POST",
+						data: {
+							path: currDir,	
+							fname: "Untitled",
+							contents: "New File contents."
+						}}).
+						success(function(msg){
+							console.log(msg);
+							console.log("trSel="+trSel);
+						});	
+					break;
+				case "rename":
+					alert("cmd ???");
+					break;
+				case "copy":
+					alert("cmd ???");
+					break;
+				case "paste":
+					alert("cmd ???");
+					break;
+				case "delete":
+					alert("cmd ???");
+					break;
+				}
+			},
+			items: {
+				"edit": {name: "Edit", icon: "edit"},
+				"new": {name: "New", icon: "add"},
+				"rename": {name: "Rename", icon: "rename"},
+				"copy": {name: "Copy", icon: "copy"},
+				"paste": {name: "Paste", icon: "paste"},
+				"delete": {name: "Delete", icon: "delete"}
+			}
+		});
+	
+	// áãàâéêóõíóôçÁÃÀÂÉÊÓÍÕÓÔ
+	
+		fileSave = function (id, contents) {
+			// ok, id must be "editArea". No need to check.
+			var currFile = editAreaLoader.getCurrentFile('editArea');
+			var url = '/filetr';
+			var path = currFile.id;
+			//contents = encodeURIComponent(contents);
+			contents = contents.replace(/\n\n/,"\n");
+			$.ajax({type: "PUT",
+					url: url,
+					data: { path: path,
+							contents: contents }}).
+				done(function(){
+					console.log("SAVED: "+path+ "-->"+contents);
+					//alert('saved '+path);
+				});
+		}
+		// initialisation
+		editAreaLoader.init({
+			id: "editArea"	// id of the textarea to transform		
+			,start_highlight: true	// if start with highlight
+			,allow_resize: "both"
+			,allow_toggle: false 
+			,word_wrap: false
+			,language: "pt"
+			,syntax: "js"	
+			,save_callback: "fileSave"
+			,toolbar: "save, |, search, go_to_line, fullscreen, |, undo, redo, |, select_font, |, syntax_selection, |, change_smooth_selection, highlight, reset_highlight, |, help",
+		});
+	});
+		
+	</script>
+
+
+  </body>
+</html>

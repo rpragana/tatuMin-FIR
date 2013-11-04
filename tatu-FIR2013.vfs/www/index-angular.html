@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html ng-app="myApp">
+<head>
+    <meta charset="utf-8">
+    <title>AngularJS tests</title>
+    <link rel="stylesheet" href="css/styles.css" />
+</head>
+
+<body>
+<h1>AngularJS tests</h1>
+
+
+<div class="hidden">
+<p>This is my brand new page for testing.</p>
+<div ng-controller="ExampCtrl">
+    <input type="text" ng-model="inputvar"></input>
+    <ul>
+    <li>Contents of variable "name": {{name}}</li>       
+    <li>Contents of variable "inputvar": {{inputvar}}</li>       
+    </ul>
+    <h2>Agenda</h2>
+    <table>-
+        <tr><th>Nome</th><th>Fone</th></tr>
+        <tr ng-repeat="contato in agenda">
+            <td>{{contato.nome}}</td>
+            <td>{{contato.fone}}</td>
+        </tr>
+    </table>
+</div>
+</div>
+
+
+<div class="hidden">
+<div ng-controller="funcsCtrl">
+	<h2>Procs in ::logger and ::tatu namespaces</h2>
+	<ul id="flow-ul" ng-repeat="proc in procList">
+		<li>{{proc}}</li>
+	</ul>
+	<br clear="both">
+	<p>Data: {{data}}</p>
+	<p>URL: {{url}}</p>
+    <input type="text" ng-model="watchedvar" placeholder="this is a watched var"></input>
+</div>
+</div>
+
+<div class="hidden">
+<h3>The following div is for compiler checking.</h3>
+<div compile-check></div>
+</div>
+
+<div class="hidden">
+<h3>Github fetched data (logo &amp; project name)</h3>
+<div ng-controller="DemoCtrl">
+  <div whoiam>This text will be overwritten</div>
+</div>
+</div>
+
+<div class="">
+<h3>Sharing var between controllers</h3>
+<!--<input type="text" ng-model="msg">
+<p>{{msg}}</p>
+-->
+<div ng-controller="FirstCtrl">
+<input type="text" ng-model="data.msg">
+<p>{{data.msg}}</p>
+</div>
+
+<div ng-controller="SecondCtrl">
+<input type="text" ng-model="data.msg">
+<p>{{reversedMessage()}}</p>
+<p>Reversed again: {{data.msg|reverse}}</p>
+</div>
+</div>
+
+<script type="application/x-javascript" src="js/angular.js"></script>
+<script type="application/x-javascript" src="js/angular-tests.js"></script>
+</body>
+</html>

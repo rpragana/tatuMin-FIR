@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Bootstrap, from Twitter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+    </style>
+	
+	<link href="css/jqueryFileTree.css" type="text/css" rel="stylesheet" />
+    <link href="css/jquery.contextMenu.css" rel="stylesheet" type="text/css" />
+	<style>
+			.demo {
+				width: 25%;
+				height: 500px;
+				border-top: solid 1px #BBB;
+				border-left: solid 1px #BBB;
+				border-bottom: solid 1px #FFF;
+				border-right: solid 1px #FFF;
+				background: #FFF;
+				overflow: scroll;
+				padding: 5px;
+				
+				float: left;	
+			}
+
+			.editor-wrapper {
+					float: right;
+					width: 73%;
+			}			
+			#editArea {
+				height: 500px; 
+				width: 100%;
+			}
+
+			h1.demo1 {
+			  font-size: 72px;
+  				background: -webkit-linear-gradient(#800, #0f0);
+  				background-clip: text;
+  				-webkit-background-clip: text;
+  				text-fill-color: transparent;
+  				-webkit-text-fill-color: transparent;
+			}
+
+		</style>
+
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+	
+	<link rel="stylesheet" href="css/font-awesome.css">
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="../assets/ico/favicon.png">
+  </head>
+
+  <body>
+
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="brand" href="#">Project name</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#contact">Contact</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Action</a></li>
+                  <li><a href="#">Another action</a></li>
+                  <li><a href="#">Something else here</a></li>
+                  <li class="divider"></li>
+                  <li class="nav-header">Nav header</li>
+                  <li><a href="#">Separated link</a></li>
+                  <li><a href="#">One more separated link</a></li>
+                </ul>
+              </li>
+            </ul>
+            <form class="navbar-form pull-right">
+              <input class="span2" type="text" placeholder="Email">
+              <input class="span2" type="password" placeholder="Password">
+              <button type="submit" class="btn">Sign in</button>
+            </form>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+
+      <!-- Main hero unit for a primary marketing message or call to action -->
+      <div class="hero-unit">
+        <h1 class="demo1">Hello, world!</h1>
+        <p>This is a template for a simple marketing or informational website. It includes a large callout called the hero unit and three supporting pieces of content. Use it as a starting point to create something more unique.</p>
+		<p>
+		<a href="editor.html" class="btn btn-primary btn-default"
+				>editor/filetree &raquo;</a>
+		<a href="contextmenu/demo/demo.html" class="btn btn-primary btn-default"
+				>contextmenu &raquo;</a>
+		<a href="nod/" class="btn btn-primary btn-default">nod &raquo;</a>
+		<a href="wysihtml5/" class="btn btn-primary btn-default"
+				>wysihtml5 &raquo;</a>
+		</p><p>
+		<a href="microjs/" 
+				class="btn btn-primary btn-default">microjs (collection) &raquo;</a>
+		<a href="shower/" 
+				class="btn btn-primary btn-default">Shower &raquo;</a>
+		<a href="Trip/" 
+				class="btn btn-primary btn-default">Trip &raquo;</a>
+		<a href="javascript-stacktrace/test/functional/" 
+				class="btn btn-primary btn-default">Stacktrace &raquo;</a>
+		</p>
+		<p>
+		<a href="#miscexamp" class="btn btn-success btn-small"
+			data-toggle="collapse">Miscellaneous examples with or without Bootstrap</a>  
+<div id="miscexamp" class="collapse">  
+		<p>
+		<a href="ColtJS/demo/" 
+				class="btn btn-primary btn-default">ColtJS &raquo;</a>
+		<a href="/svgex3.html" 
+				class="btn btn-primary btn-default">SVG title &raquo;</a>
+		<a href="agility-start/" 
+				class="btn btn-primary btn-default">Agility &raquo;</a>
+		<a href="ember-starter/" 
+				class="btn btn-primary btn-default">Ember &raquo;</a>
+		</p>
+		<p>
+		<a href="maria/doc/" 
+				class="btn btn-primary btn-default">Maria &raquo;</a>
+		<a href="backbone.epoxy/www/" 
+				class="btn btn-primary btn-default">Backbone.epoxy &raquo;</a>
+		<a href="BetterExamples/" 
+				class="btn btn-primary btn-default">BetterExamples &raquo;</a>
+		<a href="twitter-bootstrap/" class="btn btn-primary btn-default"
+				>Bootstrap (misc) &raquo;</a>
+		</p>
+		<p>
+		<a href="FormHelpers/docs/" class="btn btn-primary btn-default"
+				>FormHelpers &raquo;</a>
+		<a href="prompts/" class="btn btn-primary btn-default">prompts &raquo;</a>
+		<a href="Mention/demo/demo.html" class="btn btn-primary btn-default">Mention &raquo;</a>
+		<a href="backbone.stickit/test/" 
+				class="btn btn-primary btn-default">Backbone Stickit (test) &raquo;</a>
+		</p>
+		<p>
+		<a href="flight/demo/" 
+				class="btn btn-primary btn-default">Flight (demo) &raquo;</a>
+		<a href="flight/" 
+				class="btn btn-primary btn-default">Flight (demo docs) &raquo;</a>
+		<a href="pnotify/" class="btn btn-primary btn-default">pnotify &raquo;</a>
+		<a href="chaplin-boilerplate-plain/" 
+			class="btn btn-primary btn-default">Chaplin boilerplate 
+				plain &raquo;</a>
+		</p>
+		<p>
+		<a href="rivetsjs+backbone/" 
+				class="btn btn-primary btn-default">Rivets+Backbone &raquo;</a>
+		<a href="hello-backbonejs/" 
+				class="btn btn-primary btn-default">Hello Backbone &raquo;</a>
+		<a href="ivy/" 
+				class="btn btn-primary btn-default">Ivy &raquo;</a>
+		<a href="fuelux/" 
+				class="btn btn-primary btn-default">fuelux &raquo;</a>
+		</p>
+		<p>
+		<a href="video-player/" class="btn btn-primary btn-default">video-player &raquo;</a>
+		<a href="lightbox/docs/" class="btn btn-primary btn-default">lightbox &raquo;</a>
+		<a href="font.html" 
+				class="btn btn-primary btn-default">Font Awesome &raquo;</a>
+		</p>
+</div>
+		<p>
+		<a href="#todomvc" class="btn btn-success btn-small"
+			data-toggle="collapse">TodoMVC examples in several frameworks</a>  
+<div id="todomvc" class="collapse">  
+		<p>
+		<a href="labs/architecture-examples/spine/" 
+				class="btn btn-primary btn-default">Spine (TodoMVC) &raquo;</a>
+		<a href="labs/architecture-examples/lacesjs/" 
+				class="btn btn-primary btn-default">Laces (TodoMVC) &raquo;</a>
+		<a href="labs/architecture-examples/laces_addons/" 
+				class="btn btn-primary btn-default">Laces+addons (TodoMVC) &raquo;</a>
+		</p><p>
+		<a href="labs/architecture-examples/agilityjs/" 
+				class="btn btn-primary btn-default">Agility (TodoMVC) &raquo;</a>
+		<a href="labs/architecture-examples/backbone/" 
+				class="btn btn-primary btn-default">Backbone (TodoMVC) &raquo;</a>
+		<a href="labs/architecture-examples/canjs/" 
+				class="btn btn-primary btn-default">Can.js (TodoMVC) &raquo;</a>
+		<a href="labs/architecture-examples/emberjs/" 
+				class="btn btn-primary btn-default">Ember (TodoMVC) &raquo;</a>
+		</p><p>
+		<a href="labs/architecture-examples/jquery/" 
+				class="btn btn-primary btn-default">jQuery (TodoMVC) &raquo;</a>
+		<a href="labs/architecture-examples/knockback/" 
+				class="btn btn-primary btn-default">Knockback (TodoMVC) &raquo;</a>
+		<a href="labs/architecture-examples/knockoutjs/" 
+				class="btn btn-primary btn-default">Knockout (TodoMVC) &raquo;</a>
+		</p><p>
+		<a href="labs/architecture-examples/stapes/" 
+				class="btn btn-primary btn-default">Stapes (TodoMVC) &raquo;</a>
+		<a href="labs/architecture-examples/sammyjs/" 
+				class="btn btn-primary btn-default">Sammyjs (TodoMVC) &raquo;</a>
+		<a href="labs/architecture-examples/o_O/" 
+				class="btn btn-primary btn-default">o_O (TodoMVC) &raquo;</a>
+		<a href="labs/architecture-examples/maria/src/" 
+				class="btn btn-primary btn-default">Maria (TodoMVC) &raquo;</a>
+		</p><p>
+		<a href="labs/architecture-examples/backbone_marionette/" 
+				class="btn btn-primary btn-default">Backbone Marionette (TodoMVC) &raquo;</a>
+		<a href="labs/architecture-examples/dermis/" 
+				class="btn btn-primary btn-default">Dermis (TodoMVC) &raquo;</a>
+		<a href="labs/architecture-examples/troopjs/" 
+				class="btn btn-primary btn-default">Troop (TodoMVC) &raquo;</a>
+		<a href="labs/architecture-examples/thorax/" 
+				class="btn btn-primary btn-default">Thorax (TodoMVC) &raquo;</a>
+		</p>
+</div></p>  	
+
+		<p><i class="icon-ambulance icon-4x" 
+				style="font-size: 220px; color: #840;
+				text-shadow: 0.03em 0.03em 0.08em #646;"></i></p>
+		
+
+	</div>
+
+      <!-- Example row of columns -->
+      <div class="row">
+        <div class="span4">
+			
+		  <h2>Heading</h2>
+          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <p><a class="btn" href="#">View details &raquo;</a></p>
+		  
+<p>Change the text in the input and then click outside the input to trigger a change event (it will progate the new value back to the model, and then update the span that is currently bound to the "name" attribute)</p>
+
+<div id="user-view">
+  <span data-text="user.name"></span>
+  <input data-value="user.name">
+</div>
+
+        </div>
+        <div class="span4">
+<!--
+<div id="auction">
+  <h1 data-text="auction.title"></h1>
+  <img data-src="image.url">
+
+  <div class='info' data-show='auction.endingSoon'>
+    <p>Hurry up! This auction is ending soon.</p>
+  </div>
+
+  <dl>
+    <dt>Current Bid</dt>
+    <dd data-text='auction.currentBid | money'></dd>
+    <dt>Time left</dt>
+    <dt data-text='auction.remaining | time'></dt>
+  </dl>
+</div>
+-->
+
+          <h2>Heading</h2>
+          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <p><a class="btn" href="#">View details &raquo;</a></p>
+		  
+<div id="book">
+  <b data-text="book:title"></b>
+  <p class='info' data-show='book:available'>Now Available</p>
+  <!--<p> avail:<input type="checkbox" data-checked="book.available"></input></p>-->
+  <p>Cost: <span data-text='book:cost'></span></p>
+</div>    
+
+       </div>
+        <div class="span4">
+          <h2>Heading</h2>
+          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+          <p><a class="btn" href="#">View details &raquo;</a></p>
+        </div>
+      </div>
+
+      <hr>
+
+      <footer>
+        <p>&copy; Rildo Pragana &#x2015; 2013</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	<!--<script src="js/require.js"></script>-->
+    <script src="js/jquery-2.0.0.js"></script>
+    <script src="js/jquery-migrate-1.1.1.js"></script>
+    <script src="js/bootstrap-transition.js"></script>
+    <script src="js/bootstrap-alert.js"></script>
+    <script src="js/bootstrap-modal.js"></script>
+    <script src="js/bootstrap-dropdown.js"></script>
+    <script src="js/bootstrap-scrollspy.js"></script>
+    <script src="js/bootstrap-tab.js"></script>
+    <script src="js/bootstrap-tooltip.js"></script>
+    <script src="js/bootstrap-popover.js"></script>
+    <script src="js/bootstrap-button.js"></script>
+    <script src="js/bootstrap-collapse.js"></script>
+    <script src="js/bootstrap-carousel.js"></script>
+    <script src="js/bootstrap-typeahead.js"></script>
+	
+	<script src="js/jquery.ui.position.js"></script>
+	<script src="js/jquery.contextMenu.js"></script>
+	<script src="js/underscore.js"></script>
+	<script src="js/backbone.js"></script>
+	<script src="js/mustache.js"></script>
+<!--	<script src="js/jqueryFileTree.js"></script>
+	<script src="js/edit_area_full.js"></script>
+	-->
+	<script src="raphael/raphael.js"></script>
+	
+	<script src="rivets/lib/rivets.js"></script>
+	<script src="dermis/dermis.js"></script>
+	<script src="js/coffee-script.js"></script>
+
+	<script>
+$(document).ready(function(){
+	/*var auction = {};
+	auction.title = "Exemplo de leilão"
+	auction.endingSoon = true;
+	auction.currentBid = 123.45;
+	auction.remaining = 15;
+
+	rivets.configure({
+  		adapter: {
+    		subscribe: function(obj, keypath, callback) {
+      			//obj.on('change:' + keypath, callback);
+    		},
+    		unsubscribe: function(obj, keypath, callback) {
+      			//obj.off('change:' + keypath, callback);
+    		},
+    		read: function(obj, keypath) {
+      			//return obj.get(keypath);
+    		},
+    		publish: function(obj, keypath, value) {
+      			//obj.set(keypath, value);
+    		}
+  		}
+	});
+	rivets.bind($('#auction'), {auction: auction})
+*/
+
+	var book = {
+		title:'Awesome Book Title',
+		available: true,
+		cost:'$5.15'
+	};
+
+    rivets.bind(document.getElementById('book'), {book: book})
+
+// -------------------------------------------------------------
+
+// CONFIGURE RIVETS.JS WITH BACKBONE.JS
+
+rivets.configure({
+  adapter: {
+    subscribe: function(obj, keypath, callback) {
+      callback.wrapped = function(m, v) { callback(v) };
+      obj.on('change:' + keypath, callback.wrapped);
+    },
+    unsubscribe: function(obj, keypath, callback) {
+      obj.off('change:' + keypath, callback.wrapped);
+    },
+    read: function(obj, keypath) {
+      return obj.get(keypath);
+    },
+    publish: function(obj, keypath, value) {
+      obj.set(keypath, value);
+    }
+  }
+});
+
+// BINDING BACKBONE.JS MODEL(S) TO A VIEW
+
+var user = new Backbone.Model({name: 'Joe'});
+var el = document.getElementById('user-view');
+
+rivets.bind(el, {user: user});
+
+});
+
+// ----------- dermis js tests
+
+// var example = (function() {
+//   var User, todd,
+//     __hasProp = {}.hasOwnProperty,
+//     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
+// 
+//   User = (function(_super) {
+// 
+//     __extends(User, _super);
+// 
+//     function User() {
+//       return User.__super__.constructor.apply(this, arguments);
+//     }
+// 
+//     User.prototype.urls = {
+//       create: function() {
+//         return "/users";
+//       },
+//       read: function() {
+//         return "/users/" + (this.get('id'));
+//       },
+//       update: function() {
+//         return "/users/" + (this.get('id'));
+//       },
+//       destroy: function() {
+//         return "/users/" + (this.get('id'));
+//       }
+//     };
+// 
+//     User.prototype.run = function() {
+//       return console.log("Running!");
+//     };
+// 
+//     User.prototype.walk = function() {
+//       return console.log("Walking...");
+//     };
+// 
+//     User.prototype.move = function() {
+//       if (this.get('indoors')) {
+//         return this.walk();
+//       } else {
+//         return this.run();
+//       }
+//     };
+// 
+//     return User;
+// 
+//   })(dermis.Model);
+// 
+//   todd = new User({
+//     nome: 'Todd',
+//     id: 1
+//   });
+// 
+//   todd.set('indoors', true);
+// 
+//   todd.move();
+// 
+//   todd.set('indoors', false);
+// 
+//   todd.move();
+// 
+//   return {User: User, todd: todd};
+// }).call(this);
+
+
+	</script>
+
+<!--<script type="text/coffeescript">
+	console.log "executando coffeescript source..."	
+</script>
+-->
+
+<script type="text/coffeescript">
+		console.log "interpretando coffeescript source..."
+		class User extends dermis.Model
+			# Add some URLs for syncing
+			urls:
+				create: -> "/api/users"
+				read: -> "/api/users/#{@get('id')}"
+				update: -> "/api/users/#{@get('id')}"
+				destroy: -> "/api/users/#{@get('id')}"
+			# Add a custom function
+			run: ->
+				console.log "Running!"
+			# And another one
+			walk: ->
+				console.log "Walking..."
+			# And one more...
+			move: ->
+				if @get('indoors')
+				  @walk()
+				else
+				  @run()
+
+		todd = new User name: 'Todd', id: 1
+		todd.set('indoors', true)
+		todd.move() # Walking...
+		todd.set('indoors', false)
+		todd.move() # Running!
+
+		console.log "interpretando FINAL coffeescript source..."
+		window.example = {User: User, todd: todd}
+</script>
+
+
+  </body>
+</html>

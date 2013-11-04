@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+	<link href="css/bootstrap.css" rel="stylesheet">
+	<script src="/js/jquery.js"></script>
+	<script src="jquery.upload-1.0.2.js"></script>
+  </head>
+  <body>
+		<h1>Test for upload function</h1>
+		<div class="demo_frame">
+  <script type="text/javascript">
+    $(function() {
+        $('#file2').change(function() {
+            $(this).upload('/test', $('#data_field').serialize(), function(res) {
+                var filename = $(res).find('name').text(),
+                    data = $(res).find('data').text();
+               //console.log('Filename: ' + filename + "\n" + 'Data: ' + data);
+            }, 'text');
+        });
+    });
+  </script>
+
+  <input type="text" name="data" id="data_field" value="Your data" /><br/>
+  <input type="file" name="file" id="file2" />
+</div>
+
+  </body>
+</html>

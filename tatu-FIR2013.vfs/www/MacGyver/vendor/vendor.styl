@@ -1,0 +1,253 @@
+@import "nib"
+
+body
+  background  #f9fafb
+  padding-top 54px
+  position    relative
+
+h1
+  &.hero
+    color                  #363636
+    font-size              60px
+    font-weight            500
+    text-align             center
+    margin-bottom          22px
+    -moz-font-smoothing    antialiased
+    -webkit-font-smoothing antialiased
+    font-smoothing         antialiased
+    text-shadow            0 1px 1px rgba(0,0,0,0.15)
+
+section
+  &:first-child
+    padding-top 0px
+
+  padding-top 30px
+
+  h1
+    padding-bottom 9px
+    margin         20px 0 30px
+    border-bottom  1px solid #eeeeee
+
+#top-nav
+  font-family      'Montserrat', sans-serif
+  background-color #363636
+  position         fixed
+  top              0
+  width            100%
+  height           69px
+  z-index          10
+  transform        rotateX(0) rotateY(0)
+
+  #logo
+    display      block
+    width        154px
+    height       39px
+    float        left
+    margin-right 20px
+
+  .nav-menu
+    margin   0 auto
+    display  block
+    width    680px
+    overflow hidden
+
+    li
+      margin-right 10px
+      float left
+
+      a:hover
+        text-decoration underline
+
+  a, a:visited, a:active
+    display         block
+    line-height     69px
+    padding         2px 10px 0
+    font-size       14px
+    color           #FFF
+    text-decoration none
+
+.macgyver-head
+  padding    55px 0px 10px 0px
+  position   relative
+  text-align center
+
+  ul
+    display    block
+    list-style none
+
+    li
+      margin  0px 10px
+      display inline
+
+  .macgyver-links
+    margin 0px auto 30px auto
+
+  .github-info
+    padding          10px 0px
+    background-color #f5f5f5
+    border-top       1px solid #ddd
+    border-bottom    1px solid #ddd
+
+// Example section css
+.docs-example
+  position         relative
+  margin           15px 0
+  padding          39px 19px 14px
+  *padding-top     19px
+  background-color #fff
+  border           1px solid #ddd
+  border-radius    4px
+  min-height       25px
+
+  &:after
+    content          "Example"
+    position         absolute
+    top              -1px
+    left             -1px
+    padding          3px 7px
+    font-size        12px
+    font-weight      bold
+    background-color #f5f5f5
+    border           1px solid #ddd
+    color            #9da0a4
+    border-radius    4px 0px 4px 0px
+
+// Side nav
+.docs-sidenav
+  width            220px
+  margin           30px 0px 0px
+  padding          0px
+  background-color #fff
+  border-radius    6px
+  box-shadow       0 1px 4px rgba(0,0,0,.065)
+  transform        rotateX(0) rotateY(0)
+
+  &.affix
+    top 54px
+
+  li
+    a
+      display block
+      margin  0 0 -1px
+      padding 8px 14px
+      border  1px solid #e5e5e5
+
+    &:first-child
+      a
+        border-radius  6px 6px 0 0
+    &:last-child
+      a
+        border-radius  0 0 6px 6px
+
+    .icon-chevron-right
+      float        right
+      margin-top   2px
+      margin-right -6px
+      opacity      .25
+
+  .active
+    a
+      position    relative
+      z-index     2
+      padding     9px 15px
+      border      0
+      text-shadow 0 1px 0 rgba(0,0,0,.15)
+      box-shadow  inset 1px 0 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.1)
+
+.footer
+  text-align       center
+  padding          30px 0
+  margin-top       70px
+  border-top       1px solid #e5e5e5
+  background-color #f5f5f5
+
+  p
+    margin-bottom 0
+    color         #777
+
+  .footer-links
+    margin 10px 0
+    li
+      display inline
+      padding 0 2px
+      &:first-child
+        padding-left 0
+
+// Taken from Twitter bootstrap prettify
+// http://twitter.github.io/bootstrap/assets/js/google-code-prettify/prettify.css
+.com
+  color #93a1a1
+.lit
+  color #195f91
+.pun, .opn, .clo
+  color #93a1a1
+.fun
+  color #dc322f
+.str, .atv
+  color #D14
+.kwd, .prettyprint .tag
+  color #1e347b
+.typ, .atn, .dec, .var
+  color teal
+.pln
+  color #48484c
+
+.prettyprint
+  padding          8px
+  background-color #f7f7f9
+  border           1px solid #e1e1e8
+
+.prettyprint.linenums
+  box-shadow inset 40px 0 0 #fbfbfc, inset 41px 0 0 #ececf0
+
+
+/* Specify class=linenums on a pre to get line numbering */
+ol.linenums
+  margin 0 0 0 33px /* IE indents via margin-left */
+
+ol.linenums li
+  padding-left 12px
+  color        #bebec5
+  line-height  20px
+  text-shadow  0 1px 0 #fff
+
+/* Desktop large
+------------------------- */
+@media (min-width: 1200px)
+  .docs-sidenav
+    width 258px
+
+  .docs-sidenav > li > a
+    width 230px \9 /* Override the previous IE8-9 hack */
+
+/* Desktop
+------------------------- */
+@media (max-width: 980px)
+
+  /* When affixed, space properly */
+  .docs-sidenav
+    top          0
+    width        218px
+    margin-top   30px
+    margin-right 0
+
+/* Tablet to desktop
+------------------------- */
+@media (min-width: 768px) and (max-width: 979px)
+  /* Adjust sidenav width */
+  .docs-sidenav
+    width      166px
+    margin-top 20px
+
+/* Tablet
+------------------------- */
+@media (max-width: 767px)
+  /* Sidenav */
+  .docs-sidenav
+    width         auto
+    margin-bottom 20px
+
+    &.affix
+      position static
+      width    auto
+      top      0

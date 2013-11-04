@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="testApp">
+  <head>
+    <meta charset="utf-8">
+    <title>test1</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="css/bootstrap-combined.min.css" rel="stylesheet">
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/font-awesome.css">
+	<style>
+	pre {
+		margin: 0;
+		padding: 0;
+		border: 0;
+	}
+	</style>
+</head>
+<body>
+
+<!--  ******************  direct2test view  *********************  -->
+<div ng-controller="direc2testCtrl">
+<div ng-model="log" direc2test-directive></div>
+<!--<p>Hello, {{name}}!</p>-->
+</div>
+<!--  ***********************************************************  -->
+
+
+<script src="js/jquery-2.0.0.js"></script>
+<script src="js/jquery-migrate-1.1.1.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/angular.js"></script>
+<script src="js/ui-bootstrap-tpls-0.5.0.js"></script>
+<script>
+var app = angular.module("testApp",['ui.bootstrap']);
+
+app.controller('direc2testCtrl',function($scope,$timeout,$http){
+	var start=0;
+	$scope.log = [];
+	$scope.name = "";
+	var countUp = function() {
+		$http.get('/log?cmd=readlog&start='+start)
+		.success(function(data){
+			$scope.log = data;
+			start += data.length;
+			console.log("logCTRL GOT:"+JSON.stringify(data));
+			//angular.forEach(data,function(item, key){
+				//$scope.log.unshift(item);
+				//$scope.log = $scope.log.slice(0,500);
+				//console.log("ITEM: "+JSON.stringify(item));
+				//start++;
+			//});
+			$timeout(countUp, 1000);
+		});
+	}
+	$timeout(countUp, 1000);
+});
+
+app.directive('direc2testDirective',function(){
+	return {
+		require: 'ngModel',
+		link: function(scope,elem,attrs,ngModel){
+			scope.$watch(function(){
+				return ngModel.$modelValue;
+			}, function(va) {
+				angular.forEach(va,function(v,key) {
+					elem.prepend('<pre>'+v.line+': '+v.msg+'</pre>');
+				});
+			});
+		}
+	}
+});
+
+
+
+</script>
+
+
+</body>
+</html>

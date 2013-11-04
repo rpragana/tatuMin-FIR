@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Embedded SVG</title>
+
+<!--<link href='http://fonts.googleapis.com/css?family=Wendy+One' rel='stylesheet' type='text/css'>
+-->
+
+
+<style>
+@font-face {
+  font-family: 'Wendy One';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Wendy One'), local('WendyOne-Regular'), url(font/WendyOne-Regular.woff) format('woff');
+}
+
+#svg1 {
+	position: fixed;
+	top: 60px;
+	left: 20px;
+	z-index: -10;
+}
+
+p {
+  font-family: sans-serif;
+  font-weight: bold;
+  font-size: 22px;
+  color: #604;
+}
+</style>
+
+
+</head>
+<body>
+<h1>Embedded SVG</h1>
+<p>Examine o fonte (source .html) para ver como adicionar o SVG.</p>
+<!-- SVG code -->
+<!--<svg width="800px" height="600px" xmlns="http://www.w3.org/2000/svg">
+	<text x="10" y="200" font-size="180">My SVG</text>
+    </svg>
+-->
+<svg width="1200px" height="800px" id="svg1"> 
+    <defs>
+      <linearGradient id="gradientDefinition"
+         x1="0" y1="0" x2="800" y2="0" 
+         gradientUnits="userSpaceOnUse">
+         <stop offset="0%"   style="stop-color:#cc4400"/>
+         <stop offset="50%"   style="stop-color:#00ff00"/>
+         <stop offset="100%" style="stop-color:#0000cc"/>
+      </linearGradient> 
+    </defs>
+    
+    <g transform="translate(50,130)">
+      <text id="horizontalText" x="0" y="0" 
+            fill="url(#gradientDefinition)" 
+            font-size="160" font-family="Wendy One">
+            Gradient Text
+      </text>
+    </g>
+</svg>
+
+<!-- ############### scripts added to page ################# -->
+<script src="js/jquery.js"></script>
+
+</body>
+</html>

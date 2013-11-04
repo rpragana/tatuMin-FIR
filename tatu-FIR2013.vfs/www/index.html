@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Bootstrap, from Twitter</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="Unknown" >
+
+    <!-- Le styles -->
+	<link href="css/bootstrap-combined.min.css" rel="stylesheet">
+	<link href="css/jqueryFileTree.css" type="text/css" rel="stylesheet" />
+    <link href="css/jquery.contextMenu.css" rel="stylesheet" type="text/css" />
+    <link href="css/local.css" rel="stylesheet" type="text/css" />
+    <link href="css/bootstrap-responsive.css" rel="stylesheet">
+	<link rel="stylesheet" href="css/font-awesome.css">
+
+    <!-- Fav and touch icons -->
+    <link rel="shortcut icon" href="images/favicon.png">
+  </head>
+
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+		  <a class="brand" href="#">Web Server Experiments</a>
+          <div class="nav-collapse collapse">
+            <ul class="nav">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="/log" target="_blank">log/debug</a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown (RPragana)<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li><a href="index-angular.html" target="_blank"><i
+						class="icon-external-link"></i> AngularJS tests</a></li>
+				  <li><a href="angular-bootstrap/" target="_blank"><i
+						class="icon-external-link"></i> Angular UI Bootstrap</a></li>
+				  <li><a href="ng-upload/index.html" target="_blank"><i
+						class="icon-external-link"></i> AngularJS File Upload</a></li>
+				  <li><a href="jquery-upload" target="_blank"><i
+						class="icon-external-link"></i> file upload (jquery)</a></li>
+				  <li><a href="animation.html" target="_blank"><i
+						class="icon-external-link"></i> animation</a></li>
+				  <li><a href="font.html" target="_blank"><i
+						class="icon-external-link"></i> Font Awesome</a></li>
+				  <li><a href="whhg-font/example.html" target="_blank"><i
+						class="icon-external-link"></i> Whhg font</a></li>
+				  <li><a href="ionicons/cheatsheet.html" target="_blank"><i
+						class="icon-external-link"></i> Ionicons font</a></li>
+				  <li><a href="rainydays/demo.html" target="_blank"><i
+						class="icon-external-link"></i> Rainydays demo</a></li>
+                  <li class="divider"></li>
+                  <li class="nav-header">Nav header</li>
+                  <li><a href="#">Separated link</a></li>
+                  <li><a href="#">One more separated link</a></li>
+                </ul>
+              </li>
+            </ul>
+            <form class="navbar-form pull-right">
+              <input class="span2" type="text" placeholder="Email">
+              <input class="span2" type="password" placeholder="Password">
+              <button type="submit" class="btn">Sign in</button>
+            </form>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+
+    <div class="container">
+
+      <div class="row">
+      <div class="span6">
+<p>
+		<a href="#headexamp" class="btn btn-success btn-small"
+			data-toggle="collapse">Some examples</a>  
+<div id="headexamp" class="collapse">  
+		<p>
+		<a href="angular-invoicing/" class="btn btn-primary btn-default"
+				>angular-invoicing &raquo;</a>
+		<a href="serialgraphy/" class="btn btn-primary btn-default"
+				>Serialgraphy &raquo;</a>
+		<a href="Bacon/bacon.js/examples/examples.html" 
+				class="btn btn-primary btn-default">Bacon.js examples &raquo;</a>
+		</p><p>
+		<a href="Getting Started With AngularJS/2 - Completed Project/" class="btn btn-primary btn-default"
+				>AngularJS demo proj&raquo;</a>
+		<a href="MacGyver/example/" class="btn btn-primary btn-default"
+				>MacGyver (angularJS) &raquo;</a>
+		<a href="AngularJSDemos/DemoList.html" class="btn btn-primary btn-default"
+				>AngularJSDemos &raquo;</a>
+		</p><p>
+		<a href="Memory-Game/app/" class="btn btn-primary btn-default"
+				>Memory-Game (angularjs) &raquo;</a>
+		<a href="angular-phonecat/app/" class="btn btn-primary btn-default"
+				>angular Phonecat &raquo;</a>
+		<a href="editor.html" class="btn btn-primary btn-default"
+				>editor/filetree &raquo;</a>
+		</p><p>
+		<a href="BookmarkletCrunchinator.html" class="btn btn-primary btn-default"
+				>Bookmarklet Crunchinator &raquo;</a>
+		<a href="contextmenu/demo/demo.html" class="btn btn-primary btn-default"
+				>contextmenu &raquo;</a>
+		<a href="wysihtml5/" class="btn btn-primary btn-default"
+				>wysihtml5 &raquo;</a>
+		</p><p>
+		<a href="docs/Daring Fireball: Markdown Syntax Documentation.html" 
+				class="btn btn-primary btn-default">Markdown Syntax &raquo;</a>
+		<a href="pagedown/demo/browser/demo.html" 
+				class="btn btn-primary btn-default">pagedown &raquo;</a>
+		<a href="MarkdownPresenter/Presenter.html" 
+				class="btn btn-primary btn-default">MarkdownPresenter &raquo;</a>
+		<a href="reveal/" 
+				class="btn btn-primary btn-default">reveal.js &raquo;</a>
+		</p><p>
+		<a href="shower/" 
+				class="btn btn-primary btn-default">Shower &raquo;</a>
+		<a href="demarcate/" 
+				class="btn btn-primary btn-default">demarcate &raquo;</a>
+		<a href="nod/" class="btn btn-primary btn-default">nod &raquo;</a>
+		<a href="microjs/" 
+				class="btn btn-primary btn-default">microjs (collection) &raquo;</a>
+		</p><p>
+		<a href="Trip/" 
+				class="btn btn-primary btn-default">Trip &raquo;</a>
+		<a href="javascript-stacktrace/test/functional/" 
+				class="btn btn-primary btn-default">Stacktrace &raquo;</a>
+		<a href="font.html" 
+				class="btn btn-primary btn-default" target="_blank"><i
+				class="icon-external-link"></i> Font Awesome</a>
+		</p>
+</div>
+</p>
+		<p>
+		<a href="#miscexamp" class="btn btn-success btn-small"
+			data-toggle="collapse">Miscellaneous examples with or without Bootstrap</a>  
+<div id="miscexamp" class="collapse">  
+		<p>
+		<a href="ElementTransitions/" 
+			class="btn btn-primary btn-default">ElementTransitions &raquo;</a>
+		<a href="AnimatedBooks/index.html" 
+			class="btn btn-primary btn-default">AnimatedBooks &raquo;</a>
+		<a href="jquery-cannedtext/index.html" 
+			class="btn btn-primary btn-default">jquery-cannedtext &raquo;</a>
+		</p>
+		<p>
+		<a href="clockface/demo/index.html" 
+			class="btn btn-primary btn-default">clockface &raquo;</a>
+		<a href="Strength/demo/styled_example/index.html" 
+			class="btn btn-primary btn-default">Strength (passwd) &raquo;</a>
+		<a href="bootstrap-multiselect/index.html" 
+			class="btn btn-primary btn-default">bootstrap-multiselect &raquo;</a>
+		</p>
+		<p>
+		<a href="pin/index.html" 
+			class="btn btn-primary btn-default">jQuery.pin &raquo;</a>
+		<a href="crSpline/demo/demo.html" 
+			class="btn btn-primary btn-default">crSpline &raquo;</a>
+		<a href="Animate.html" 
+			class="btn btn-primary btn-default">CSS3 animate &raquo;</a>
+		</p>
+		<p>
+		<a href="animate.css/README.md" 
+			class="btn btn-primary btn-default">animate.css "just add water" &raquo;</a>
+		<a href="loda-button/examples/index.html" 
+			class="btn btn-primary btn-default">loda-button &raquo;</a>
+		<a href="backbone-boilerplate/readme.md" 
+			class="btn btn-primary btn-default">backbone-boilerplate &raquo;</a>
+		</p>
+		<p>
+		<a href="idiomatic.js/readme.md" 
+			class="btn btn-primary btn-default">idiomatic-javascript &raquo;</a>
+		<a href="BigInteger.js/README.md" 
+			class="btn btn-primary btn-default">BigInteger &raquo;</a>
+		<a href="javascript-patterns/README.md" 
+			class="btn btn-primary btn-default">javascript-patterns &raquo;</a>
+		<a href="ColtJS/demo/" 
+			class="btn btn-primary btn-default">ColtJS &raquo;</a>
+		</p>
+		<p>
+		<a href="/svgex3.html" 
+			class="btn btn-primary btn-default">SVG title &raquo;</a>
+		<a href="agility-start/" 
+			class="btn btn-primary btn-default">Agility &raquo;</a>
+		<a href="ember-starter/" 
+			class="btn btn-primary btn-default">Ember &raquo;</a>
+		<a href="maria/doc/" 
+			class="btn btn-primary btn-default">Maria &raquo;</a>
+		<a href="backbone.epoxy/www/" 
+			class="btn btn-primary btn-default">Backbone.epoxy &raquo;</a>
+		</p>
+		<p>
+		<a href="BetterExamples/" 
+			class="btn btn-primary btn-default">BetterExamples &raquo;</a>
+		<a href="twitter-bootstrap/" class="btn btn-primary btn-default"
+				>Bootstrap (misc) &raquo;</a>
+		<a href="crSpline/demo/demo.html" 
+			class="btn btn-primary btn-default">crSpline &raquo;</a>
+		</p>
+		<p>
+		<a href="FormHelpers/docs/" class="btn btn-primary btn-default"
+				>FormHelpers &raquo;</a>
+		<a href="prompts/" class="btn btn-primary btn-default">prompts &raquo;</a>
+		<a href="Mention/demo/demo.html" class="btn btn-primary btn-default">Mention &raquo;</a>
+		<a href="backbone.stickit/test/" 
+				class="btn btn-primary btn-default">Backbone Stickit (test) &raquo;</a>
+		</p>
+		<p>
+		<a href="flight/demo/" 
+				class="btn btn-primary btn-default">Flight (demo) &raquo;</a>
+		<a href="flight/" 
+				class="btn btn-primary btn-default">Flight (demo docs) &raquo;</a>
+		<a href="pnotify/" class="btn btn-primary btn-default">pnotify &raquo;</a>
+		</p>
+		<p>
+		<a href="chaplin-boilerplate-plain/" 
+			class="btn btn-primary btn-default">Chaplin boilerplate 
+				plain &raquo;</a>
+		<a href="rivetsjs_backbone/" 
+				class="btn btn-primary btn-default">Rivets+Backbone &raquo;</a>
+		<a href="hello-backbonejs/" 
+				class="btn btn-primary btn-default">Hello Backbone &raquo;</a>
+		</p>
+		<p>
+		<a href="ivy/" 
+				class="btn btn-primary btn-default">Ivy &raquo;</a>
+		<a href="fuelux/" 
+				class="btn btn-primary btn-default">fuelux &raquo;</a>
+		<a href="video-player/" class="btn btn-primary btn-default">video-player &raquo;</a>
+		<a href="lightbox/docs/" class="btn btn-primary btn-default">lightbox &raquo;</a>
+		<a href="font.html" 
+				class="btn btn-primary btn-default">Font Awesome &raquo;</a>
+		</p>
+</div>
+		<p>
+		<a href="#todomvc" class="btn btn-success btn-small"
+			data-toggle="collapse">TodoMVC examples in several frameworks</a>  
+<div id="todomvc" class="collapse">  
+		<p>
+		<a href="labs/architecture-examples/spine/" 
+				class="btn btn-primary btn-default">Spine (TodoMVC) &raquo;</a>
+		<a href="labs/architecture-examples/lacesjs/" 
+				class="btn btn-primary btn-default">Laces (TodoMVC) &raquo;</a>
+		<a href="labs/architecture-examples/laces_addons/" 
+				class="btn btn-primary btn-default">Laces+addons (TodoMVC) &raquo;</a>
+		</p><p>
+		<a href="labs/architecture-examples/agilityjs/" 
+				class="btn btn-primary btn-default">Agility (TodoMVC) &raquo;</a>
+		<a href="labs/architecture-examples/backbone/" 
+				class="btn btn-primary btn-default">Backbone (TodoMVC) &raquo;</a>
+		<a href="labs/architecture-examples/canjs/" 
+				class="btn btn-primary btn-default">Can.js (TodoMVC) &raquo;</a>
+		</p><p>
+		<a href="labs/architecture-examples/emberjs/" 
+				class="btn btn-primary btn-default">Ember (TodoMVC) &raquo;</a>
+		<a href="labs/architecture-examples/jquery/" 
+				class="btn btn-primary btn-default">jQuery (TodoMVC) &raquo;</a>
+		<a href="labs/architecture-examples/knockback/" 
+				class="btn btn-primary btn-default">Knockback (TodoMVC) &raquo;</a>
+		</p><p>
+		<a href="labs/architecture-examples/knockoutjs/" 
+				class="btn btn-primary btn-default">Knockout (TodoMVC) &raquo;</a>
+		<a href="labs/architecture-examples/stapes/" 
+				class="btn btn-primary btn-default">Stapes (TodoMVC) &raquo;</a>
+		<a href="labs/architecture-examples/sammyjs/" 
+				class="btn btn-primary btn-default">Sammyjs (TodoMVC) &raquo;</a>
+		</p><p>
+		<a href="labs/architecture-examples/o_O/" 
+				class="btn btn-primary btn-default">o_O (TodoMVC) &raquo;</a>
+		<a href="labs/architecture-examples/maria/src/" 
+				class="btn btn-primary btn-default">Maria (TodoMVC) &raquo;</a>
+		<a href="labs/architecture-examples/backbone_marionette/" 
+				class="btn btn-primary btn-default">Backbone Marionette (TodoMVC) &raquo;</a>
+		</p><p>
+		<a href="labs/architecture-examples/dermis/" 
+				class="btn btn-primary btn-default">Dermis (TodoMVC) &raquo;</a>
+		<a href="labs/architecture-examples/troopjs/" 
+				class="btn btn-primary btn-default">Troop (TodoMVC) &raquo;</a>
+		<a href="labs/architecture-examples/thorax/" 
+				class="btn btn-primary btn-default">Thorax (TodoMVC) &raquo;</a>
+		</p>
+</div>  	
+
+	</div>
+
+<div class="span6">
+<p><i class="icon-ambulance icon-4x" 
+	style="font-size: 360px; color: #840;
+	text-shadow: 0.03em 0.03em 0.08em #646;"></i></p>
+</div>
+		</div>
+<br>
+
+      <!-- Example row of columns -->
+      <div ng-app="rpApp" class="row">
+        <div class="span4">
+			
+		<h2>Heading</h2>
+	<div id="dermisDiv"></div>
+<!--
+		<p>Test with CSS icon: <a class="btn myicon">TESTE</a></p>
+		<p>Test with AngularJS: <input type="text" ng-model="name" />
+		</p><p>Nome: {{ name | uppercase }}.</p>
+
+<div id="ngExample2" ng-controller="MyCtrl">
+<p>This is my first AngularJS project</p>
+<input type="checkbox" ng-model="vis">Hide?</input>
+<div ng-hide="vis">
+<h2>Olá, {{nome || "amigo"}}!</h2>
+<input type="text" ng-model="nome" placeholder="Entre seu nome"></input>
+<button ng-click="clear()">clear</button>
+</div>
+</div>
+<br>
+-->
+
+<!--
+<h2>List controller</h2>
+<div ng-controller="ListCtrl">
+<p>Valor = {{val | currency:'R$'}}</p>
+<label>Pesquisa:</label><input type="search" ng-model="search"></input>
+<ul>
+<li ng-repeat="person in people | filter:search">
+{{person.nome}} : {{person.idade}}
+<button ng-click="delete($index)" class="first-{{$first}} last-{{$last}}">X</button>
+<span ng-show="$first">Primeiro</span>
+<span ng-show="$last">Último</span>
+</li>
+</ul>
+<span>Existem {{people.length}} pessoas na lista.</span>
+<div>
+<label>Nome:</label><input ng-model="novo_nome"></input>
+<br>
+<label>Idade:</label><input type="number" ng-model="nova_idade"></input>
+<br>
+<button ng-click="add()">Add</button>
+</div>
+</div>
+-->
+
+<!-- TESTES COM ANGULAR-BOOTSTRAP -->
+<!--
+<h2>Angular-Bootstrap Accordion Demo</h2>
+<div ng-controller="AccordionDemoCtrl">
+  <label class="checkbox">
+    <input type="checkbox" ng-model="oneAtATime">
+    Open only one at a time
+  </label>
+
+  <accordion close-others="oneAtATime">
+    <accordion-group heading="Static Header">
+      This content is straight in the template.
+    </accordion-group>
+    <accordion-group heading="{{group.title}}" ng-repeat="group in groups">
+      {{group.content}}
+    </accordion-group>
+    <accordion-group heading="Dynamic Body Content">
+      <p>The body of the accordion group grows to fit the contents</p>
+        <button class="btn btn-small" ng-click="addItem()">Add Item</button>
+        <div ng-repeat="item in items">{{item}}</div>
+    </accordion-group>
+    <accordion-group>
+        <accordion-heading>
+            I can have markup, too! <i class="icon-check"></i>
+        </accordion-heading>
+        This is just some content to illustrate fancy headings.
+    </accordion-group>
+  </accordion>
+</div>
+-->
+<!-- FIM =====  TESTES COM ANGULAR-BOOTSTRAP -->
+		
+
+
+		<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <p><a class="btn" href="#">View details &raquo;</a></p>
+<!--		  
+<p>Change the text in the input and then click outside the input to trigger a change event (it will progate the new value back to the model, and then update the span that is currently bound to the "name" attribute)</p>
+
+<div id="user-view">
+  <span data-text="user.name"></span>
+  <input data-value="user.name">
+</div>
+-->
+<h3>Tests with directives</h3>
+<!--
+<div ng-controller="direc2testCtrl">
+<input type="text" ng-model="name" direc2test-directive />
+<p>Hello, {{name}}!</p>
+</div>
+-->
+
+<div ng-controller="widgetCtrl">
+	<label for="checkbox">
+		<input id="checkbox" type="checkbox" ng-model="visible">Toggle me
+	</label>
+	<div show="visible" my-widget="Olá, mundo!"></div>
+</div>
+
+
+
+		</div>
+
+        <div class="span4">
+<!--
+<div id="auction">
+  <h1 data-text="auction.title"></h1>
+  <img data-src="image.url">
+
+  <div class='info' data-show='auction.endingSoon'>
+    <p>Hurry up! This auction is ending soon.</p>
+  </div>
+
+  <dl>
+    <dt>Current Bid</dt>
+    <dd data-text='auction.currentBid | money'></dd>
+    <dt>Time left</dt>
+    <dt data-text='auction.remaining | time'></dt>
+  </dl>
+</div>
+-->
+
+          <h2>Heading</h2>
+
+<h3>Simple file upload (in angularjs)</h3>
+  <div file-upload>File Upload in AngularJS</div>
+
+          <h3>tabs directive (angularjs)</h3>          
+<tabs style="background: #ffe; margin: 10px; padding: 15px; border: 2px dotted blue;">
+    <pane title="First pane">    
+         Content here
+    </pane>
+    <pane title="Second pane">
+         Second pane content here
+    </pane>
+</tabs>
+
+<h3>Hellos </h3>
+<p>(comparing factory, service, and provider)</p>
+<div ng-controller="ComparingCtrl">
+    {{hellos}}
+</div>
+
+<!--<div angular></div>-->
+<h3>Whoiam </h3>
+<p>(Github info): <div whoiam></div></p>
+
+<!--
+Tdirec:
+	<div tdirec ng-controller="tdirecCtrl">
+		<input type=text ng-model="tname"></input>
+		input={{tname}}
+	</div>
+--> 
+
+<h3>Static text</h3>
+
+          
+          <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
+          <p><a class="btn" href="#">View details &raquo;</a></p>
+		  
+		  
+<!--
+<div id="book">
+  <b data-text="book:title"></b>
+  <p class='info' data-show='book:available'>Now Available</p>
+  <p>Cost: <span data-text='book:cost'></span></p>
+</div>    
+-->
+
+
+	   </div>
+	   <br>
+	  
+        <div class="span4">
+          <h2>Heading</h2>
+          <p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+          <p><a class="btn" href="#">View details &raquo;</a></p>
+		  
+<!--****************** Filetree *************************-->
+<!--<h2>Filetree</h2>
+<div ng-controller="Filetree">
+<ul>
+<li ng-repeat="file in files">
+{{file}}
+</li>
+</ul>
+</div>
+-->
+<!-- Github controller -->
+		  <div ng-controller="GithubController">
+		  <h2>Recent commits to {{project}}</h2>
+  			<ul>
+    			<li ng-repeat="commit in commits">
+      				{{ commit.commit.committer.date | date }}
+      				<a target="_blank" ng-href="{{baseLink}}{{commit.sha}}">{{ commit.sha }}</a>
+      				{{ commit.commit.message }}
+    			</li>
+  			</ul>
+		</div>
+		  
+        </div>
+	  </div> <!-- ng-app class=row -->
+
+      <hr>
+
+      <footer>
+        <p>&copy; Rildo Pragana &#x2015; 2013</p>
+      </footer>
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	<!--<script src="js/require.js"></script>-->
+    <script src="js/jquery-2.0.0.js"></script>
+    <script src="js/jquery-migrate-1.1.1.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+	<!--
+	<script src="js/bootstrap-transition.js"></script>
+    <script src="js/bootstrap-alert.js"></script>
+    <script src="js/bootstrap-modal.js"></script>
+    <script src="js/bootstrap-dropdown.js"></script>
+    <script src="js/bootstrap-scrollspy.js"></script>
+    <script src="js/bootstrap-tab.js"></script>
+    <script src="js/bootstrap-tooltip.js"></script>
+    <script src="js/bootstrap-popover.js"></script>
+    <script src="js/bootstrap-button.js"></script>
+    <script src="js/bootstrap-collapse.js"></script>
+    <script src="js/bootstrap-carousel.js"></script>
+    <script src="js/bootstrap-typeahead.js"></script>
+	-->
+	<script src="js/jquery.ui.position.js"></script>
+	<script src="js/jquery.contextMenu.js"></script>
+	<script src="js/underscore.js"></script>
+	<script src="js/backbone.js"></script>
+	<script src="js/mustache.js"></script>
+	
+	<script src="js/angular.js"></script>
+    <script src="js/ui-bootstrap-tpls-0.5.0.js"></script>
+<!--	<script src="js/jqueryFileTree.js"></script>
+	<script src="js/edit_area_full.js"></script>
+	-->
+	<script src="raphael/raphael.js"></script>
+	
+	<script src="rivets/lib/rivets.js"></script>
+	<script src="dermis/dermis.js"></script>
+	<script src="js/coffee-script.js"></script>
+	<script src="js/local.js"></script>
+
+<!--
+<script type="text/coffeescript">
+		console.log "interpretando coffeescript source..."
+		class User extends dermis.Model
+			# Add some URLs for syncing
+			urls:
+				create: -> "/users"
+				read: -> "/users/#{@get('id')}"
+				update: -> "/users/#{@get('id')}"
+				destroy: -> "/users/#{@get('id')}"
+			# Add a custom function
+			run: ->
+				console.log "Running!"
+			# And another one
+			walk: ->
+				console.log "Walking..."
+			# And one more...
+			move: ->
+				if @get('indoors')
+				  @walk()
+				else
+				  @run()
+
+		todd = new User name: 'Todd', id: 1
+		todd.set('indoors', true)
+		todd.move() # Walking...
+		todd.set('indoors', false)
+		todd.move() # Running!
+
+		class UserView extends dermis.View
+			content: -> "<div class='user'></div>"
+			className: "user-view"
+
+			render: ->
+				@$(".user").html """
+					<p>Nome: <span class='userval'
+							>#{todd.get 'name'}</span>
+					</p>
+					<p>Id: <span class='userval'
+							>#{todd.get 'id'}</span>
+					</p>
+				"""
+				return @
+
+		$('#dermisDiv').html new UserView().render().el
+
+		console.log "interpretando FINAL coffeescript source..."
+		window.example = {User: User, todd: todd}
+</script>
+-->
+
+  </body>
+</html>

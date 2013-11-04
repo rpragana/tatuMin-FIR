@@ -1,0 +1,100 @@
+body {
+	padding-top: 60px;
+	padding-bottom: 40px;
+}
+ 
+		#itest{
+			text-align:center;
+			background:#123;
+			padding:20px 10px;
+			width:260px;
+			color:#fff;
+			margin:0 auto;
+			border-radius:5px;
+			font-weight:bold;
+			-webkit-mask-image:-webkit-linear-gradient(#000,rgba(0,0,0,.9));
+			-webkit-backface-visibility:hidden;
+			-moz-backface-visibility:hidden;
+			-ms-backface-visibility:hidden;
+			-o-backface-visibility:hidden;
+			backface-visibility:hidden;
+			-webkit-animation-duration:1s;
+			-webkit-animation-delay:.2s;
+			-webkit-animation-timing-function:ease;
+			-webkit-animation-fill-mode:both;
+			-moz-animation-duration:1s;
+			-moz-animation-delay:.2s;
+			-moz-animation-timing-function:ease;
+			-moz-animation-fill-mode:both;
+			-ms-animation-duration:1s;
+			-ms-animation-delay:.2s;
+			-ms-animation-timing-function:ease;
+			-ms-animation-fill-mode:both;
+			-o-animation-duration:1s;
+			-o-animation-delay:.2s;
+			-o-animation-timing-function:ease;
+			-o-animation-fill-mode:both;
+			animation-duration:1s;
+			animation-delay:.2s;
+			animation-timing-function:ease;
+			animation-fill-mode:both;
+		}
+		#itest p{
+			margin:0;
+		}
+			.user {
+				font-size: 150%;
+			}
+			.userval {
+				color: #c80;
+				font-weight: bold;
+				font-size: 110%;	
+			}
+			.demo {
+				width: 25%;
+				height: 500px;
+				border-top: solid 1px #BBB;
+				border-left: solid 1px #BBB;
+				border-bottom: solid 1px #FFF;
+				border-right: solid 1px #FFF;
+				background: #FFF;
+				overflow: scroll;
+				padding: 5px;
+				
+				float: left;	
+			}
+
+			.editor-wrapper {
+					float: right;
+					width: 73%;
+			}			
+			#editArea {
+				height: 500px; 
+				width: 100%;
+			}
+
+			h1.demo1 {
+				margin-top: -40px;	
+				margin-bottom: 20px;	
+				font-size: 56px;
+  				background: -webkit-linear-gradient(#800, #0f0);
+  				background-clip: text;
+  				-webkit-background-clip: text;
+  				text-fill-color: transparent;
+  				-webkit-text-fill-color: transparent;
+			}
+
+
+.myicon {
+	position:relative;
+	margin: 0 30px;
+}    
+.myicon:before {
+        position:absolute;
+		font-family: FontAwesome;
+		font-weight: bold;
+		font-size: 20px;
+        top:10;
+        left:-28px;
+		content: "\f008";
+    }

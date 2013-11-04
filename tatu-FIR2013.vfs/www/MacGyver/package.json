@@ -1,0 +1,46 @@
+{
+  "author": "SHIFT",
+  "name": "MacGyver",
+  "description": "A library of shared directives",
+  "version": "0.1.2",
+  "homepage": "http://starttheshift.github.io/MacGyver",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:StartTheShift/MacGyver.git"
+  },
+  "engines": {
+    "node": "0.8 || 0.10"
+  },
+  "scripts": {
+    "test": "grunt karma:travis"
+  },
+  "license" : "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "express": "~3.3.5",
+    "grunt": "~0.4.1",
+    "grunt-chalkboard": "~0.1.2",
+    "grunt-contrib-clean": "~0.4.1",
+    "grunt-contrib-coffee": "~0.7.0",
+    "grunt-contrib-concat": "~0.3.0",
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-contrib-jade": "~0.8.0",
+    "grunt-contrib-stylus": "~0.7.0",
+    "grunt-contrib-uglify": "~0.2.2",
+    "grunt-contrib-watch": "~0.5.1",
+    "grunt-karma": "~0.6.1",
+    "marked": "~0.2.9",
+    "matchdep": "~0.1.2",
+    "underscore": ">= 1.4.0 < 1.5",
+    "wrench": "1.5.1",
+    "karma-script-launcher": "~0.1.0",
+    "karma-chrome-launcher": "~0.1.0",
+    "karma-firefox-launcher": "~0.1.0",
+    "karma-jasmine": "~0.1.0",
+    "karma-requirejs": "~0.1.0",
+    "karma-coffee-preprocessor": "~0.1.0",
+    "karma-phantomjs-launcher": "~0.1.0",
+    "karma": "~0.10.1",
+    "karma-ng-html2js-preprocessor": "~0.1.0"
+  }
+}

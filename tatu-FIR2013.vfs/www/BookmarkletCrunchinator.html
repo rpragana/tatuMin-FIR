@@ -1,0 +1,309 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!--************************************************************************-->
+<!--* JavaScript Crunchinator Demo                                         *-->
+<!--*                                                                      *-->
+<!--* Copyright 2001 by Mike Hall                                          *-->
+<!--* Please see http://www.brainjar.com for terms of use.                 *-->
+<!--************************************************************************-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<title>Bookmarklet Crunchinator</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- <link href="/common/default.css" rel="stylesheet" type="text/css" /> -->
+<style type="text/css">
+
+/* Superfluous stylings for the form. */
+
+input, textarea {
+  background-color: #d0f0f0;
+  border-color: #00d0d0;
+  border-width: 2px;
+  padding: 2px;
+  scrollbar-base-color: #00d0d0;
+}
+
+input.button {
+  background-color: #00d0d0;
+  border-color: #00d0d0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10pt;
+  font-weight: bold;
+  padding: 0px;
+  width: 5em;
+}
+
+table {
+  border-color: #00f0f0 #009090 #009090 #00f0f0;
+  border-style: solid;
+  border-width: 2px;
+  background-color: #00c0c0;
+  padding: 4px;
+}
+
+td, th {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 10pt;
+}
+
+th {
+  background-color: #008080;
+  border-color: #000000;
+  border-style: solid;
+  border-width: 1px;
+  color: #ffffff;
+  padding-left: 8px;
+  padding-right: 8px;
+  text-align: left;
+  width: auto;
+}
+
+</style>
+<script type="text/javascript">//<![CDATA[
+
+//*****************************************************************************
+// Do not remove this notice.
+//
+// Copyright 2001 by Mike Hall.
+// See http://www.brainjar.com for terms of use.
+//*****************************************************************************
+
+var literalStrings;  // For temporary storage of literal strings.
+
+function crunch(f) {
+
+  var input, output;
+  var i;
+
+  // Get input script code, process it and display output.
+
+  f.elements.statusMsg.value = "Working...";
+  input = "(function() {\n" + f.elements.codeIn.value + "\n})();";
+  output = input;
+  f.elements.statusMsg.value = "Replacing literal strings...";
+  output = replaceLiteralStrings(output);
+  f.elements.statusMsg.value = "Removing comments...";
+  output = removeComments(output);
+  f.elements.statusMsg.value = "Compressing white space...";
+  output = compressWhiteSpace(output);
+  f.elements.statusMsg.value = "Combining literal strings...";
+  output = combineLiteralStrings(output);
+  f.elements.statusMsg.value = "Restoring literal strings...";
+  output = restoreLiteralStrings(output);
+  f.elements.statusMsg.value = "Done.";
+  // make the link
+  document.getElementById('codeOut').href = "javascript:" + output;
+  document.getElementById('codeOut').innerHTML = f.elements.bName.value;
+
+
+  // Compute sizes.
+
+  f.elements.sizeIn.value   = input.length;
+  f.elements.sizeOut.value  = output.length;
+  f.elements.sizeDiff.value = input.length - output.length;
+  if (input.length > 0)
+    f.elements.pctOut.value = 100 -
+      Math.round(output.length / input.length * 10000) / 100;
+
+  return false;
+}
+
+function replaceLiteralStrings(s) {
+
+  var i, c, t, lines, escaped, quoteChar, inQuote, literal;
+
+  literalStrings = new Array();
+  t = "";
+
+  // Split script into individual lines.
+
+  lines = s.split("\n");
+  for (i = 0; i < lines.length; i++) {
+
+    j = 0;
+    inQuote = false;
+    while (j <= lines[i].length) {
+      c = lines[i].charAt(j);
+
+      // If not already in a string, look for the start of one.
+
+      if (!inQuote) {
+        if (c == '"' || c == "'") {
+          inQuote = true;
+          escaped = false;
+          quoteChar = c;
+          literal = c;
+        }
+       else
+         t += c;
+      }
+
+      // Already in a string, look for end and copy characters.
+
+      else {
+        if (c == quoteChar && !escaped) {
+          inQuote = false;
+          literal += quoteChar;
+          t += "__" + literalStrings.length + "__";
+          literalStrings[literalStrings.length] = literal;
+        }
+        else if (c == "\\" && !escaped)
+          escaped = true;
+        else
+          escaped = false;
+        literal += c;
+      }
+      j++;
+    }
+    t += "\n";
+  }
+
+  return t;
+}
+
+function removeComments(s) {
+
+  var lines, i, t;
+
+  // Remove '//' comments from each line.
+
+  lines = s.split("\n");
+  t = "";
+  for (i = 0; i < lines.length; i++)
+    t += lines[i].replace(/([^\x2f]*)\x2f\x2f.*$/, "$1");
+
+  // Replace newline characters with spaces.
+
+  t = t.replace(/(.*)\n(.*)/g, "$1 $2");
+
+  // Remove '/* ... */' comments.
+
+  lines = t.split("*/");
+  t = "";
+  for (i = 0; i < lines.length; i++)
+    t += lines[i].replace(/(.*)\x2f\x2a(.*)$/g, "$1 ");
+
+  return t;
+}
+
+function compressWhiteSpace(s) {
+
+  // Condense white space.
+
+  s = s.replace(/\s+/g, " ");
+  s = s.replace(/^\s(.*)/, "$1");
+  s = s.replace(/(.*)\s$/, "$1");
+
+  // Remove uneccessary white space around operators, braces and parentices.
+
+  s = s.replace(/\s([\x21\x25\x26\x28\x29\x2a\x2b\x2c\x2d\x2f\x3a\x3b\x3c\x3d\x3e\x3f\x5b\x5d\x5c\x7b\x7c\x7d\x7e])/g, "$1");
+  s = s.replace(/([\x21\x25\x26\x28\x29\x2a\x2b\x2c\x2d\x2f\x3a\x3b\x3c\x3d\x3e\x3f\x5b\x5d\x5c\x7b\x7c\x7d\x7e])\s/g, "$1");
+  return s;
+}
+
+function combineLiteralStrings(s) {
+
+  var i;
+
+  s = s.replace(/"\+"/g, "");
+  s = s.replace(/'\+'/g, "");
+
+  return s;
+}
+
+function restoreLiteralStrings(s) {
+
+  var i;
+
+  for (i = 0; i < literalStrings.length; i++)
+    s = s.replace(new RegExp("__" + i + "__"), literalStrings[i]);
+
+  return s;
+}
+
+//]]></script>
+<style type="text/css">#keyboardInputMasterUserScript {  position:absolute;  font:normal 11px Arial,sans-serif;  border-top:1px solid #eeeeee;  border-right:1px solid #888888;  border-bottom:1px solid #444444;  border-left:1px solid #cccccc;  -webkit-border-radius:0.6em;  -moz-border-radius:0.6em;  border-radius:0.6em;  -webkit-box-shadow:0px 2px 10px #444444;  -moz-box-shadow:0px 2px 10px #444444;  box-shadow:0px 2px 10px #444444;  opacity:0.95;  filter:alpha(opacity=95);  background-color:#dddddd;  text-align:left;  z-index:1000000;  width:auto;  height:auto;  min-width:0;  min-height:0;  margin:0px;  padding:0px;  line-height:normal;  -moz-user-select:none;  cursor:default;}#keyboardInputMasterUserScript * {  position:static;  color:#000000;  background:transparent;  font:normal 11px Arial,sans-serif;  width:auto;  height:auto;  min-width:0;  min-height:0;  margin:0px;  padding:0px;  border:0px none;  outline:0px;  vertical-align:baseline;  line-height:1.3em;}#keyboardInputMasterUserScript table {  table-layout:auto;}#keyboardInputMasterUserScript.keyboardInputSize1,#keyboardInputMasterUserScript.keyboardInputSize1 * {  font-size:9px;}#keyboardInputMasterUserScript.keyboardInputSize3,#keyboardInputMasterUserScript.keyboardInputSize3 * {  font-size:13px;}#keyboardInputMasterUserScript.keyboardInputSize4,#keyboardInputMasterUserScript.keyboardInputSize4 * {  font-size:16px;}#keyboardInputMasterUserScript.keyboardInputSize5,#keyboardInputMasterUserScript.keyboardInputSize5 * {  font-size:20px;}#keyboardInputMasterUserScript thead tr th {  padding:0.3em 0.3em 0.1em 0.3em;  background-color:#999999;  white-space:nowrap;  text-align:right;  -webkit-border-radius:0.6em 0.6em 0px 0px;  -moz-border-radius:0.6em 0.6em 0px 0px;  border-radius:0.6em 0.6em 0px 0px;}#keyboardInputMasterUserScript thead tr th div {  float:left;  font-size:130% !important;  height:1.3em;  font-weight:bold;  position:relative;  z-index:1;  margin-right:0.5em;  cursor:pointer;  background-color:transparent;}#keyboardInputMasterUserScript thead tr th div ol {  position:absolute;  left:0px;  top:90%;  list-style-type:none;  height:9.4em;  overflow-y:auto;  overflow-x:hidden;  background-color:#f6f6f6;  border:1px solid #999999;  display:none;  text-align:left;  width:12em;}#keyboardInputMasterUserScript thead tr th div ol li {  padding:0.2em 0.4em;  cursor:pointer;  white-space:nowrap;  width:12em;}#keyboardInputMasterUserScript thead tr th div ol li.selected {  background-color:#ffffcc;}#keyboardInputMasterUserScript thead tr th div ol li:hover,#keyboardInputMasterUserScript thead tr th div ol li.hover {  background-color:#dddddd;}#keyboardInputMasterUserScript thead tr th span,#keyboardInputMasterUserScript thead tr th strong,#keyboardInputMasterUserScript thead tr th small,#keyboardInputMasterUserScript thead tr th big {  display:inline-block;  padding:0px 0.4em;  height:1.4em;  line-height:1.4em;  border-top:1px solid #e5e5e5;  border-right:1px solid #5d5d5d;  border-bottom:1px solid #5d5d5d;  border-left:1px solid #e5e5e5;  background-color:#cccccc;  cursor:pointer;  margin:0px 0px 0px 0.3em;  -webkit-border-radius:0.3em;  -moz-border-radius:0.3em;  border-radius:0.3em;  vertical-align:middle;  -webkit-transition:background-color .15s ease-in-out;  -o-transition:background-color .15s ease-in-out;  transition:background-color .15s ease-in-out;}#keyboardInputMasterUserScript thead tr th strong {  font-weight:bold;}#keyboardInputMasterUserScript thead tr th small {  -webkit-border-radius:0.3em 0px 0px 0.3em;  -moz-border-radius:0.3em 0px 0px 0.3em;  border-radius:0.3em 0px 0px 0.3em;  border-right:1px solid #aaaaaa;  padding:0px 0.2em 0px 0.3em;}#keyboardInputMasterUserScript thead tr th big {  -webkit-border-radius:0px 0.3em 0.3em 0px;  -moz-border-radius:0px 0.3em 0.3em 0px;  border-radius:0px 0.3em 0.3em 0px;  border-left:0px none;  margin:0px;  padding:0px 0.3em 0px 0.2em;}#keyboardInputMasterUserScript thead tr th span:hover,#keyboardInputMasterUserScript thead tr th span.hover,#keyboardInputMasterUserScript thead tr th strong:hover,#keyboardInputMasterUserScript thead tr th strong.hover,#keyboardInputMasterUserScript thead tr th small:hover,#keyboardInputMasterUserScript thead tr th small.hover,#keyboardInputMasterUserScript thead tr th big:hover,#keyboardInputMasterUserScript thead tr th big.hover {  background-color:#dddddd;}#keyboardInputMasterUserScript tbody tr td {  text-align:left;  padding:0.2em 0.3em 0.3em 0.3em;  vertical-align:top;}#keyboardInputMasterUserScript tbody tr td div {  text-align:center;  position:relative;  zoom:1;}#keyboardInputMasterUserScript tbody tr td table {  white-space:nowrap;  width:100%;  border-collapse:separate;  border-spacing:0px;}#keyboardInputMasterUserScript tbody tr td#keyboardInputNumpad table {  margin-left:0.2em;  width:auto;}#keyboardInputMasterUserScript tbody tr td table.keyboardInputCenter {  width:auto;  margin:0px auto;}#keyboardInputMasterUserScript tbody tr td table tbody tr td {  vertical-align:middle;  padding:0px 0.45em;  white-space:pre;  height:1.8em;  font-family:'Lucida Console','Arial Unicode MS',monospace;  border-top:1px solid #e5e5e5;  border-right:1px solid #5d5d5d;  border-bottom:1px solid #5d5d5d;  border-left:1px solid #e5e5e5;  background-color:#eeeeee;  cursor:default;  min-width:0.75em;  -webkit-border-radius:0.2em;  -moz-border-radius:0.2em;  border-radius:0.2em;  -webkit-transition:background-color .15s ease-in-out;  -o-transition:background-color .15s ease-in-out;  transition:background-color .15s ease-in-out;}#keyboardInputMasterUserScript tbody tr td table tbody tr td.last {  width:99%;}#keyboardInputMasterUserScript tbody tr td table tbody tr td.space {  padding:0px 4em;}#keyboardInputMasterUserScript tbody tr td table tbody tr td.deadkey {  background-color:#ccccdd;}#keyboardInputMasterUserScript tbody tr td table tbody tr td.target {  background-color:#ddddcc;}#keyboardInputMasterUserScript tbody tr td table tbody tr td:hover,#keyboardInputMasterUserScript tbody tr td table tbody tr td.hover {  border-top:1px solid #d5d5d5;  border-right:1px solid #555555;  border-bottom:1px solid #555555;  border-left:1px solid #d5d5d5;  background-color:#cccccc;}#keyboardInputMasterUserScript thead tr th span:active,#keyboardInputMasterUserScript thead tr th span.pressed,#keyboardInputMasterUserScript tbody tr td table tbody tr td:active,#keyboardInputMasterUserScript tbody tr td table tbody tr td.pressed {  border-top:1px solid #555555 !important;  border-right:1px solid #d5d5d5;  border-bottom:1px solid #d5d5d5;  border-left:1px solid #555555;  background-color:#cccccc;}#keyboardInputMasterUserScript tbody tr td table tbody tr td small {  display:block;  text-align:center;  font-size:0.6em !important;  line-height:1.1em;}#keyboardInputMasterUserScript tbody tr td div label {  position:absolute;  bottom:0.2em;  left:0.3em;}#keyboardInputMasterUserScript tbody tr td div label input {  background-color:#f6f6f6;  vertical-align:middle;  font-size:inherit;  width:1.1em;  height:1.1em;}#keyboardInputMasterUserScript tbody tr td div var {  position:absolute;  bottom:0px;  right:3px;  font-weight:bold;  font-style:italic;  color:#444444;}</style></head>
+<body>
+
+<div id="demoBox">
+
+<h3>Bookmarklet Crunchinator</h3>
+
+<p>Based on the <a href="http://www.brainjar.com/js/crunch/demo.html">Javascript Crunchinator Demo</a>, you can use this to quickly create a bookmarklet from some javascript code.</p>
+
+<p>Enter your javascript code in the text area below Input.  Enter a 
+name for the bookmarklet in the Name field.  Click crunch, and the code 
+will be compressed, and turned into a link under output.  You can then 
+drag this to your bookmarks toolbar as a bookmarklet, or right click and
+ bookmark it, or just click it to try it out.</p>
+
+<p>Note that your code will automatically be wrapped in a function to make it bookmarklet-friendly.</p>
+
+</div>
+
+<p></p>
+
+<form action="" onsubmit="return crunch(this)">
+
+<table border="0">
+<tbody><tr>
+  <th colspan="3">Input</th>
+</tr>
+<tr>
+  <td colspan="3"><b>Name:</b> <input vki_attacheduserscript="true" name="bName" size="20" value="Your Bookmarklet" type="text"></td>
+</tr>
+<tr>
+  <td colspan="3"><textarea vki_attacheduserscript="true" name="codeIn" rows="10" cols="80"></textarea></td>
+</tr>
+<tr>
+  <td><b>Bytes:</b>  <input vki_attacheduserscript="true" name="sizeIn" size="10" disabled="disabled" type="text"></td>
+  <td><b>Status:</b> <input vki_attacheduserscript="true" name="statusMsg" size="30" disabled="disabled" type="text"></td>
+  <td style="text-align:right;"><input class="button" value="Crunch" type="submit"> <input class="button" value="Clear" type="reset"></td>
+</tr>
+</tbody></table>
+
+<p></p>
+
+<table border="0">
+<tbody><tr>
+  <th colspan="4">Output</th>
+</tr>
+<tr>
+  <td colspan="4"><a id="codeOut" href="javascript:alert('enter%20some%20code')">Your Bookmarklet</a></td>
+</tr>
+<tr>
+  <td><b>Bytes:</b>   <input vki_attacheduserscript="true" name="sizeOut" size="10" disabled="disabled" type="text"></td>
+  <td><b>Saved:</b>   <input vki_attacheduserscript="true" name="sizeDiff" size="10" disabled="disabled" type="text"></td>
+  <td colspan="2"><b>% Saved:</b> <input vki_attacheduserscript="true" name="pctOut" size="10" disabled="disabled" type="text"></td>
+</tr>
+</tbody></table>
+
+</form>
+
+<h2>Template and Loader function (RPragana)</h2>
+<pre>
+javascript:(function(){
+  function loadScript(url,callback) {
+     var head=document.getElementsByTagName("head")[0];
+     var script=document.createElement("script");
+     script.src=url;
+     var done=false;
+     script.onload=script.onreadystatechange=function(){
+        if(!done&&(!this.readyState||this.readyState=="loaded"
+             ||this.readyState=="complete")) {
+           done=true;
+           callback();
+           script.onload=script.onreadystatechange=null;
+           head.removeChild(script);
+         }
+     };
+     head.appendChild(script);
+  }
+  loadScript("http://code.jquery.com/jquery-latest.js",function(){
+	 /* Example: American Thinker formatter
+	 	$('span').attr('style','');
+     	$('body').css({margin:"0%20150px","font-size":"105%"});
+	*/
+   });
+})();
+</pre>
+
+</body></html>

@@ -1,0 +1,24 @@
+h1 {
+    color: #268;
+}
+
+p {
+    font-size: larger;
+}
+
+table {
+    border-collapse:collapse;
+}
+td, th {
+    text-align: left;
+    border: 2px dotted #88f;
+    padding: 5px;
+}
+
+#flow-ul li {
+	float: left; margin-right: 5em;
+}
+
+.hidden {
+	display: none;
+}

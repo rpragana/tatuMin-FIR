@@ -1,0 +1,233 @@
+<html lang="en">
+<head>
+<title>tcvJSON Parser</title>
+<meta http-equiv="Content-Type" content="text/html">
+<meta name="description" content="tcvJSON Parser">
+<meta name="generator" content="makeinfo 4.13">
+<link title="Top" rel="top" href="#Top">
+<link href="http://www.gnu.org/software/texinfo/" rel="generator-home" title="Texinfo Homepage">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<style type="text/css"><!--
+  pre.display { font-family:inherit }
+  pre.format  { font-family:inherit }
+  pre.smalldisplay { font-family:inherit; font-size:smaller }
+  pre.smallformat  { font-family:inherit; font-size:smaller }
+  pre.smallexample { font-size:smaller }
+  pre.smalllisp    { font-size:smaller }
+  span.sc    { font-variant:small-caps }
+  span.roman { font-family:serif; font-weight:normal; } 
+  span.sansserif { font-family:sans-serif; font-weight:normal; } 
+body {
+    font-family: DejaVu Sans, Verdana, sans-serif;
+    max-width: 48em;
+}
+
+body#front-page li > img {
+    padding-top: 2px;
+    float: right;
+}
+
+a:link {
+    color: #000000;
+}
+
+a:visited {
+    color: #000000;
+}
+
+pre {
+    background-color: #C0C0C0;
+    border: dashed 1px black;
+    padding: 8px;
+    font-family: Consolas, DejaVu Sans Mono, monospace;
+}
+
+tt {
+    font-family: Consolas, DejaVu Sans Mono, monospace;
+}
+
+code {
+    font-family: Consolas, DejaVu Sans Mono, monospace;
+    color: #2E8B57;
+}
+
+samp {
+    font-family: Consolas, DejaVu Sans Mono, monospace;
+    color: #8B2252;
+}
+
+a img {
+    border: none;
+}
+
+li a {
+    text-decoration: none;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+table > thead {
+    border: solid 1px black;
+}
+
+thead > tr > td, thead > tr > th {
+    background-color: #C0C0C0;
+    border-bottom: solid 1px black;
+}
+
+tbody > tr > td {
+    vertical-align: top;
+}
+
+/* This only really occurs inside the navigation controls. */
+table > tbody:first-child > tr > td > a {
+    text-decoration: none;
+}
+
+table > tbody {
+    border: solid 1px black;
+}
+
+/* For times where there are tables with no headers,
+ * such as in the navigation controls, do not put a border. */
+table > tbody:first-child {
+    border: none;
+}
+
+table td {
+    padding: 4px;
+}
+
+hr {
+    border: 0;
+    color: #808080;
+    background-color: #808080;
+}
+
+span.sf {
+    font-family: sans-serif;
+}
+
+span.sc {
+    font-variant: small-caps;
+}
+
+span.roman {
+    font-style: normal;
+}
+
+var {
+    color: #27408B;
+    font-style: italic;
+}
+
+dd > ul > li {
+    margin-bottom: 1ex;
+    margin-top: 1ex;
+}
+
+ul > li > ul {
+    margin-bottom: 1ex;
+    margin-top: 1ex;
+}
+
+span.file {
+    color: #27408B;
+    font-weight: bold;
+}
+
+dt {
+    margin-top: 1ex;
+    margin-bottom: 1ex;
+}
+--></style>
+</head>
+<body>
+<h1 class="settitle">tcvJSON Parser</h1>
+<h2 class="chapter"><a name="TOC0"></a>1 Introduction</h2>
+
+<p>tcvJSON is derived from the json module found in tcllib.  The fundamental problem with tcllib is
+while it does a great job at parsing JSON data, it does so in a way that does not maintain the JSON
+structure unambiguously in Tcl.  That is, going from JSON to Tcl and back to JSON is not possible. 
+tcvJSON was written as an enhanced version of the json module in tcllib to address these issues.
+
+<p>This it does by tagging each ambiguous part of a JSON structure with a type.  There is a type for
+numbers, strings, arrays, and objects.  The bare words &ldquo;true,&rdquo; &ldquo;false,&rdquo; and &ldquo;null&rdquo; retain
+their meaning without tags.  Everything else is qualified with some kind of tag indicating its
+types.  This allows us to unambiguously convert JSON to Tcl, manipulate the result with Tcl
+commands, and finally convert back to JSON while maintaining the original structure, plus any
+intended structure added while it was in the Tcl representation.
+
+<h2 class="chapter"><a name="TOC1"></a>2 Commands</h2>
+
+<div class="defun">
+&mdash; Command: <b>tcvJSON::create</b><var> type<a name="index-tcvJSON_003a_003acreate-1"></a></var><br>
+     </div>
+
+<div class="defun">
+&mdash; Command: <b>tcvJSON::add!</b> [<samp><span class="option">-type</span></samp><var> type</var>]<var> jsonName thing<a name="index-tcvJSON_003a_003aadd_0021-2"></a></var><br>
+<blockquote><p>  Appends <var>thing</var> onto the end of the JSON list stored in <var>jsonName</var>.  Signals an error if
+  the value of <var>jsonName</var> is not a JSON array. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Command: <b>tcvJSON::put!</b> [<samp><span class="option">-type</span></samp><var> type</var>]<var> jsonName key value<a name="index-tcvJSON_003a_003aput_0021-3"></a></var><br>
+<blockquote><p>  Adds the key/value pair given to the JSON object stored in <var>jsonName</var>.  Signals an error if
+  the value of <var>jsonName</var> is not a JSON object. 
+</p>
+<p><b>Nota adicional</b> - Ao acrescentar um objeto usar o comando seguinte:<br>
+<code>tcvJSON::put! -type obj jsonValue subObj [lrange $subObjJSON 1 end]</code>
+</p>
+</blockquote></div>
+
+<div class="defun">
+&mdash; Command: <b>tcvJSON::unparse</b><var> json<a name="index-tcvJSON_003a_003aunparse-4"></a></var><br>
+<blockquote><p>  Return the JSON form of the value <var>json</var> as a string. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Command: <b>tcvJSON::write</b> [<var>channel</var>]<var> jsonName<a name="index-tcvJSON_003a_003awrite-5"></a></var><br>
+<blockquote><p>  Writes the JSON representation of the data stored in <var>jsonName</var> out on <var>channel</var> (or
+  stdout if not provided). 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Command: <b>tcvJSON::parse</b><var> txt<a name="index-tcvJSON_003a_003aparse-6"></a></var><br>
+<blockquote><p>  Parse the text stored in <var>txt</var> and return a Tcl representation of that JSON data. 
+</p></blockquote></div>
+
+<div class="defun">
+&mdash; Command: <b>tcvJSON::objForEach</b><var> k v obj script<a name="index-tcvJSON_003a_003aobjForEach-7"></a></var><br>
+<blockquote><p>  For each key/value pair in <var>obj</var>, evaluates <var>script</var> with variables named <var>k</var> and
+  <var>v</var> set to the current key and value, respectively.
+
+     <pre class="example">     <pre class="verbatim">          ::tcvJSON::objForEach key value $jsonObject {
+              puts "$key => $value"
+          }
+     </pre>
+</pre>
+        </blockquote></div>
+
+<div class="defun">
+&mdash; Command: <b>tcvJSON::exists?</b><var> json thing<a name="index-tcvJSON_003a_003aexists_003f-8"></a></var><br>
+        </div>
+
+<div class="defun">
+&mdash; Command: <b>tcvJSON::listForEach</b><var> e lst script<a name="index-tcvJSON_003a_003alistForEach-9"></a></var><br>
+<blockquote><p>  For each element in <var>lst</var>, evaluates <var>script</var> with the variable named <var>e</var> set to the
+  current element.
+
+     <pre class="example">     <pre class="verbatim">          set i 0
+          ::tcvJSON::listForEach elt $jsonArray {
+              puts "[$i] $elt"
+              incr i
+          }
+     </pre>
+</pre>
+        </blockquote></div>
+
+</body></html>
+

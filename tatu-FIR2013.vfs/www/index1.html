@@ -1,0 +1,191 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<link href="css/reset.css" type="text/css" rel="stylesheet" />
+	<link href="css/main.css" type="text/css" rel="stylesheet" />
+	<link href="css/jqueryFileTree.css" type="text/css" rel="stylesheet" />
+    <link href="css/jquery.contextMenu.css" rel="stylesheet" type="text/css" />
+
+	<style>
+			.demo {
+				width: 25%;
+				height: 500px;
+				border-top: solid 1px #BBB;
+				border-left: solid 1px #BBB;
+				border-bottom: solid 1px #FFF;
+				border-right: solid 1px #FFF;
+				background: #FFF;
+				overflow: scroll;
+				padding: 5px;
+				
+				float: left;	
+			}
+
+			.editor-wrapper {
+					float: right;
+					width: 73%;
+			}			
+			#editArea {
+				height: 500px; 
+				width: 100%;
+			}
+		</style>
+
+
+	<script src="js/jquery.js"></script>
+	<script src="js/jquery.ui.position.js"></script>
+	<script src="js/jquery.contextMenu.js"></script>
+	<script src="js/underscore.js"></script>
+	<script src="js/backbone.js"></script>
+	<script src="js/mustache.js"></script>
+	<script src="js/jqueryFileTree.js"></script>
+	<script src="js/edit_area_full.js"></script>
+	
+	<title>Tatu web server sample</title>
+</head>
+<body>
+<!-- ********************** MAIN UI ****************** -->
+<div id="wrapper">		
+<div id="links">
+	<a class="nodecor" href="index.html">
+		<h1>Tatu web server sample</h1></a>
+
+	<p class="warn">
+	Server log, tcl debugger:<br>
+	<a href="http://localhost:8000/log" target="_blank">Log/Debug (http)</a><br>
+	</p>
+</div>
+
+<div class="filetree context-menu demo"></div>
+
+<div class="editor-wrapper">
+<textarea id="editArea" style="height: 500px; width: 100%;" name="test_1">
+area usada para edição de arquivos
+</textarea>
+</div>
+
+</div><!-- wrapper -->
+<script>
+	var fileSave;	
+	var trSel;
+	var currDir;
+	window.onbeforeunload = function(){ 
+		return "Isso irá descartar a edição em curso!"; 
+	};	
+	$(document).ready(function(){
+		var x,y;
+
+		$('.filetree').mousemove(function(e){
+			x = e.pageX;
+			y = e.pageY;
+		});
+		$('.filetree').fileTree({
+				root: '',
+				script: '/filetree'
+		},function(file){
+			trSel = file;	
+			$('.context-menu').contextMenu({x: x, y: y});
+			//alert(file);
+		},function(dir){
+			currDir = dir;
+			//alert("changed dir="+dir);
+		});
+		//console.log("FileTree setup done!");
+		
+		$.contextMenu({
+			selector: '.context-menu', 
+			//trigger: 'left',
+			callback: function(key, options) {
+				var m = "clicked: " + key;
+				//window.console && console.log(m) || alert(m); 
+				//console.log(m+" --> "+trSel); 
+				//alert(key+" --> "+trSel); 
+				//if (trSel == undefined) {
+				//	alert("???");
+				//	return;
+				//}
+				switch (key) {	
+				case "edit":		
+					var url = '/filetr?path='+
+						encodeURIComponent(trSel);
+					$.get(url,function(data){
+						//console.log(data);	
+						var components = trSel.split("/");
+						var fn = components[components.length-1];
+						editAreaLoader.openFile("editArea", 
+							{id: fn,
+							text: data,
+							syntax:"js"});
+					});
+					break;
+				case "new":
+					var url="/filetr";
+					$.ajax({url: url,
+						type: "POST",
+						data: {
+							path: currDir,	
+							fname: "Untitled",
+							contents: "New File contents."
+						}}).
+						success(function(msg){
+							console.log(msg);
+							console.log("trSel="+trSel);
+						});	
+					break;
+				case "rename":
+					alert("cmd ???");
+					break;
+				case "copy":
+					alert("cmd ???");
+					break;
+				case "paste":
+					alert("cmd ???");
+					break;
+				case "delete":
+					alert("cmd ???");
+					break;
+				}
+			},
+			items: {
+				"edit": {name: "Edit", icon: "edit"},
+				"new": {name: "New", icon: "add"},
+				"rename": {name: "Rename", icon: "rename"},
+				"copy": {name: "Copy", icon: "copy"},
+				"paste": {name: "Paste", icon: "paste"},
+				"delete": {name: "Delete", icon: "delete"}
+			}
+		});
+	
+	// áãàâéêóõíóôçÁÃÀÂÉÊÓÍÕÓÔ
+	
+		fileSave = function (id, contents) {
+			// ok, id must be "editArea". No need to check.
+			var url = '/filetr';
+			$.ajax({type: "PUT",
+					url: url,
+					data: { path: trSel,
+							contents: contents }}).
+				done(function(){
+					alert('saved '+trSel);
+				});
+		}
+		// initialisation
+		editAreaLoader.init({
+			id: "editArea"	// id of the textarea to transform		
+			,start_highlight: true	// if start with highlight
+			,allow_resize: "both"
+			,allow_toggle: false 
+			,word_wrap: true
+			,language: "en"
+			,syntax: "js"	
+			,save_callback: "fileSave"
+			,toolbar: "save, |, search, go_to_line, fullscreen, |, undo, redo, |, select_font, |, syntax_selection, |, change_smooth_selection, highlight, reset_highlight, |, help",
+		});
+	});
+		
+	</script>
+
+
+</body>
+</html

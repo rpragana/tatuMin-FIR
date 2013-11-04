@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Angular file upload sample</title>
+<link href="common.css" type="text/css" rel="stylesheet">
+
+<script src="../js/angular.js"></script>
+<script src="../js/angular-file-upload.js"></script>
+<style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak{display:none !important;}ng\:form{display:block;}</style>
+
+</head>
+
+<body>
+	<h1>Angular file upload Demo</h1>
+
+	<div class="ng-scope" ng-app="fileUpload" ng-controller="MyCtrl">
+		Model object to be sent to the server with the file: 
+		<input value="testando" class="ng-valid ng-dirty" ng-model="myModel" type="text"> <br>
+		choose a single file: <input ng-file-select="onFileSelect($files)" type="file">
+		<br>
+		or multiple files: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input ng-file-select="onFileSelect($files)" multiple="" type="file">
+		<br>
+		<br>
+		<div ng-show="dropSupported" class="drop-box" ng-file-drop="onFileSelect($files);" ng-file-drop-available="dropSupported=true">or drop files here</div>
+		<div style="display: none;" ng-show="!dropSupported">HTML5 Drop File is not supported on this browser</div>
+		<br>
+		<!--Progress:
+		<br>
+		<div ng-show="selectedFiles != null">-->
+		<div ng-show="false">
+			<!-- ngRepeat: f in selectedFiles --><div class="sel-file ng-scope ng-binding" ng-repeat="f in selectedFiles">
+				<span class="progress">						
+					<div class="ng-binding" style="width:0%">0%</div>
+				</span>
+				netbeans-6.9.1.desktop - size: 289B - type: application/x-desktop
+			</div><div class="sel-file ng-scope ng-binding" ng-repeat="f in selectedFiles">
+				<span class="progress">						
+					<div class="ng-binding" style="width:0%">0%</div>
+				</span>
+				openshot.desktop - size: 393B - type: application/x-desktop
+			</div>
+		</div>
+		
+<!--		<div style="" class="response" ng-show="uploadResult.length &gt; 0">-->
+		<div style="" class="response" ng-show="false">
+			Server Response:
+			<ul>
+				<!-- ngRepeat: result in uploadResult --><li class="ng-scope" ng-repeat="result in uploadResult">
+					<ul>
+						<!-- ngRepeat: item in result --><li class="ng-scope" ng-repeat="item in result">
+							<div style="display: none;" class="ng-binding" data-ng-show="item.name">file name: </div>
+							<div class="ng-binding" data-ng-show="item.fieldName">name: myModel</div>
+							<div style="display: none;" class="ng-binding" data-ng-show="item.size">size on the serve: </div>
+							<div class="ng-binding" data-ng-show="item.value">value: rildo</div>
+						</li><li class="ng-scope" ng-repeat="item in result">
+							<div class="ng-binding" data-ng-show="item.name">file name: netbeans-6.9.1.desktop</div>
+							<div class="ng-binding" data-ng-show="item.fieldName">name: sentFile</div>
+							<div class="ng-binding" data-ng-show="item.size">size on the serve: 289</div>
+							<div style="display: none;" class="ng-binding" data-ng-show="item.value">value: </div>
+						</li>
+					</ul>
+				</li><li class="ng-scope" ng-repeat="result in uploadResult">
+					<ul>
+						<!-- ngRepeat: item in result --><li class="ng-scope" ng-repeat="item in result">
+							<div style="display: none;" class="ng-binding" data-ng-show="item.name">file name: </div>
+							<div class="ng-binding" data-ng-show="item.fieldName">name: myModel</div>
+							<div style="display: none;" class="ng-binding" data-ng-show="item.size">size on the serve: </div>
+							<div class="ng-binding" data-ng-show="item.value">value: rildo</div>
+						</li><li class="ng-scope" ng-repeat="item in result">
+							<div class="ng-binding" data-ng-show="item.name">file name: openshot.desktop</div>
+							<div class="ng-binding" data-ng-show="item.fieldName">name: sentFile</div>
+							<div class="ng-binding" data-ng-show="item.size">size on the serve: 393</div>
+							<div style="display: none;" class="ng-binding" data-ng-show="item.value">value: </div>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		angular.module('fileUpload', [ 'angularFileUpload' ]);
+
+		var MyCtrl = [ '$scope', '$http', '$timeout', '$upload', function($scope, $http, $timeout, $upload) {
+
+			$scope.selectedFiles = [];
+			$scope.progress = [];
+			
+			$scope.onFileSelect = function($files) {
+				$scope.uploadResult = [];
+				$scope.selectedFiles = $files;
+				for ( var i = 0; i < $files.length; i++) {
+					var $file = $files[i];
+					$scope.progress[i] = 0;
+					(function() {
+						var index = i; 
+						$upload.upload({
+							url : '/test',
+							headers: {'myHeaderKey': 'myHeaderVal'},
+							data : {
+								myModel : $scope.myModel
+							},
+							file : $file,
+							fileFormDataName: 'sentFile',
+							progress: function(evt) {
+								$scope.progress[index] = parseInt(100.0 * evt.loaded / evt.total);
+								if (!$scope.$$phase) {
+									$scope.$apply();
+								}
+							}
+						}).success(function(data, status, headers, config) {
+							$scope.uploadResult.push(data.result);
+							//alert(status+"\n\n"+data);
+							alert(data);
+							// to fix IE not updating the dom
+							if (!$scope.$$phase) {
+								$scope.$apply();
+							}
+						});
+					})();
+				}
+			}
+		} ];
+	</script>
+
+
+</body></html>

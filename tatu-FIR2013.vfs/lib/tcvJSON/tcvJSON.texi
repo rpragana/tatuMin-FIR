@@ -1,0 +1,77 @@
+\input Texinfo
+@settitle tcvJSON Parser
+@titlepage
+@title tcvJSON Parser
+@author Taylor Venable
+@end titlepage
+
+@chapter Introduction
+tcvJSON is derived from the json module found in tcllib.  The fundamental problem with tcllib is
+while it does a great job at parsing JSON data, it does so in a way that does not maintain the JSON
+structure unambiguously in Tcl.  That is, going from JSON to Tcl and back to JSON is not possible.
+tcvJSON was written as an enhanced version of the json module in tcllib to address these issues.
+
+This it does by tagging each ambiguous part of a JSON structure with a type.  There is a type for
+numbers, strings, arrays, and objects.  The bare words ``true,'' ``false,'' and ``null'' retain
+their meaning without tags.  Everything else is qualified with some kind of tag indicating its
+types.  This allows us to unambiguously convert JSON to Tcl, manipulate the result with Tcl
+commands, and finally convert back to JSON while maintaining the original structure, plus any
+intended structure added while it was in the Tcl representation.
+
+@chapter Commands
+@deffn Command tcvJSON::create type
+@end deffn
+
+@deffn Command tcvJSON::add! [@option{-type} type] jsonName thing
+  Appends @var{thing} onto the end of the JSON list stored in @var{jsonName}.  Signals an error if
+  the value of @var{jsonName} is not a JSON array.
+@end deffn
+
+@deffn Command tcvJSON::put! [@option{-type} type] jsonName key value
+  Adds the key/value pair given to the JSON object stored in @var{jsonName}.  Signals an error if
+  the value of @var{jsonName} is not a JSON object.
+@end deffn
+
+@deffn Command tcvJSON::unparse json
+  Return the JSON form of the value @var{json} as a string.
+@end deffn
+
+@deffn Command tcvJSON::write [channel] jsonName
+  Writes the JSON representation of the data stored in @var{jsonName} out on @var{channel} (or
+  stdout if not provided).
+@end deffn
+
+@deffn Command tcvJSON::parse txt
+  Parse the text stored in @var{txt} and return a Tcl representation of that JSON data.
+@end deffn
+
+@deffn Command tcvJSON::objForEach k v obj script
+  For each key/value pair in @var{obj}, evaluates @var{script} with variables named @var{k} and
+  @var{v} set to the current key and value, respectively.
+
+@example
+@verbatim
+::tcvJSON::objForEach key value $jsonObject {
+    puts "$key => $value"
+}
+@end verbatim
+@end example
+@end deffn
+
+@deffn Command tcvJSON::exists? json thing
+@end deffn
+
+@deffn Command tcvJSON::listForEach e lst script
+  For each element in @var{lst}, evaluates @var{script} with the variable named @var{e} set to the
+  current element.
+
+@example
+@verbatim
+set i 0
+::tcvJSON::listForEach elt $jsonArray {
+    puts "[$i] $elt"
+    incr i
+}
+@end verbatim
+@end example
+@end deffn

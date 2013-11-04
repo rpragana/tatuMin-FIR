@@ -1,0 +1,21 @@
+# Node packages
+node_modules
+
+# Bower vendor files
+vendor/bower/*
+
+# Example upload files
+example/uploads
+
+# Logs
+test-results.xml
+libpeerconnection.log
+
+# System file types
+.DS_Store
+
+# Except these files
+!/vendor/bower/vendor.styl
+
+# Chrome generated file
+libpeerconnection.log

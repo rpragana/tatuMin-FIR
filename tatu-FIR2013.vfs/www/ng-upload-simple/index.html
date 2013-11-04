@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html><head>
+  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>File upload with AngularJS and XHR(2)</title>
+  
+  <script type="text/javascript" src="../js/angular.js"></script>
+  
+</head>
+<body class="ng-scope" ng-app="upload">
+  <div class="ng-scope ng-binding" ng-controller="UploadCtrl">    
+    <input class="ng-pristine ng-valid" multiple="" ng-model="files" file-change="" type="file">
+    <br><br>
+    Selected: 0
+</div>
+
+<script type="text/javascript">//<![CDATA[ 
+
+// Module
+// ------
+var upload = angular.module('upload', []);
+
+
+// Directive
+// ---------
+upload.directive('fileChange', function () {
+
+    var linker = function ($scope, element, attributes) {
+        // onChange, push the files to $scope.files.
+        element.bind('change', function (event) {
+            var files = event.target.files;
+            $scope.$apply(function () {
+                for (var i = 0, length = files.length; i < length; i++) {
+                    $scope.files.push(files[i]);
+                }
+            });
+        });
+    };
+
+    return {
+        restrict: 'A',
+        link: linker
+    };
+
+});
+
+
+// Factory
+// -------
+upload.factory('uploadService', ['$rootScope', function ($rootScope) {
+
+    return {
+        send: function (file) {
+            var data = new FormData(),
+                xhr = new XMLHttpRequest();
+
+            // When the request starts.
+            xhr.onloadstart = function () {
+                console.log('Factory: upload started: ', file.name);
+                $rootScope.$emit('upload:loadstart', xhr);
+            };
+
+            // When the request has failed.
+            xhr.onerror = function (e) {
+                $rootScope.$emit('upload:error', e);
+            };
+            
+            // When the request complets
+            xhr.onload = function (e) {
+                $rootScope.$emit('upload:load', xhr);
+				alert(xhr.response);
+            };
+            
+            
+            // Send to server, where we can then access it with $_FILES['file].
+            data.append('file', file, file.name);
+            xhr.open('POST', '/test');
+            xhr.send(data);
+        }
+    };
+
+}]);
+
+
+// Controller
+// ----------
+upload.controller('UploadCtrl', ['$scope', '$rootScope', 'uploadService', function ($scope, $rootScope, uploadService) {
+
+    // 'files' is an array of JavaScript 'File' objects.
+    $scope.files = [];
+
+    $scope.$watch('files', function (newValue, oldValue) {
+        // Only act when our property has changed.
+        if (newValue != oldValue) {
+            console.log('Controller: $scope.files changed. Start upload.');
+            for (var i = 0, length = $scope.files.length; i < length; i++) {
+                // Hand file off to uploadService.
+                uploadService.send($scope.files[i]);
+            }
+        }
+    }, true);
+
+    $rootScope.$on('upload:loadstart', function () {
+        console.log('Controller: on `loadstart`');
+    });
+
+    $rootScope.$on('upload:error', function () {
+        console.log('Controller: on `error`');
+    });
+
+    $rootScope.$on('upload:load', function (scope,x) {
+  //      alert(x.response);
+    });
+
+}]);
+//]]>  
+
+</script>
+
+
+
+
+
+
+
+</body></html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Backbone-forms test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+  </head>
+
+  <body>
+    <script src="js/jquery-1.7.2.min.js"></script>
+	<script src="js/underscore.js"></script>
+	<script src="js/backbone.js"></script>
+	<script src="js/backbone-forms.js"></script>
+	<script src="js/list.js"></script>
+	
+	<script>
+$(function() {
+    var User = Backbone.Model.extend({
+        schema: {
+            title:      { type: 'Select', options: ['', 'Mr', 'Mrs', 'Ms'] },
+            name:       'Text',
+            email:      { validators: ['required', 'email'] },
+            birthday:   'Date',
+            password:   'Password',
+            notes:      { type: 'List', listType: 'Text' }
+        }
+    });
+    
+    var user = new User({
+        title: 'Mr',
+        name: 'Rildo Pragana',
+        email: 'rpragana@gmail.com',
+        birthday: new Date(1951, 4, 11),
+        password: 'pernambuco',
+        notes: [
+            'Marcar consulta/dentista',
+            'Chamar Fernanda',
+            'Comprar licor de marula'
+        ]
+    });
+    
+    var form = new Backbone.Form({
+        model: user
+    }).render();
+    
+    $('body').append(form.el);
+});
+
+	</script>
+
+  </body>
+</html>

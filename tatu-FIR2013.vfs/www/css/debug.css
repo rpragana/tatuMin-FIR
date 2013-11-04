@@ -1,0 +1,429 @@
+* {
+	margin:0;
+	padding:0;
+	font-family: sans-serif; 
+}
+
+.tiny {
+	display: none;
+	color: #e0e0ff;
+	font-size: 50%;
+	font-weight: bold;
+	float: right;
+	text-decoration: none;
+}
+
+h1 {
+	margin: 10px;
+	float: right;
+	color: #001a46;
+	font-size: 110%;
+	font-weight: bold;
+	font-family: sans;
+	text-shadow: 1px 1px 3px black;
+}
+
+p.warn {
+	background: #e9eddb;
+	border: 2px dotted #604040;
+	opacity: 0.9;
+	padding: 18px;
+	text-shadow: 1.5px 1.5px 3px #804040;
+	color: #b00000;
+	font-weight: bold;
+}
+
+#cmd {
+	float: left;
+	height: 80px;
+	width: 50%
+	/*position: fixed;
+	bottom: 0px;
+	left: 0px;*/
+	/*padding: 10px 5px;*/
+}
+
+#cmd textarea {
+	float: left;
+	margin: 15px;
+	margin-bottom: 50px;
+	/*background: #efefe8;*/
+	width: 90%;
+	height: 35px;
+	/*height: 70%;*/
+	resize: none;
+	padding: 5px;
+	
+	box-shadow: 3px 4px 6px rgb(5, 9, 81), -2px -2px 6px rgb(255, 255, 198) inset, 2px 2px 6px rgb(68, 68, 6) inset;
+	background-color: rgb(211, 211, 182);
+	border-width: 3px;
+	border-style: solid;
+	border-color: rgb(158, 158, 42);
+	
+}
+
+#log {
+	margin: 0;
+	padding: 0;
+	overflow: auto;
+}
+
+#log pre {
+	width: 80%;
+	margin: 0;
+	padding: 0;
+	/*clear: none;
+	clear: both;*/
+	clear: none;
+
+	background: white;
+	border: 0;
+	/* wrap long urls */
+	white-space: pre;           /* CSS 2.0 */
+	white-space: pre-wrap;      /* CSS 2.1 */
+	white-space: pre-line;      /* CSS 3.0 */
+	white-space: -pre-wrap;     /* Opera 4-6 */
+	white-space: -o-pre-wrap;   /* Opera 7 */
+	white-space: -moz-pre-wrap; /* Mozilla */
+	white-space: -hp-pre-wrap;  /* HP Printers */
+	word-wrap: break-word;      /* IE 5+ */
+}
+
+#log .input {
+	padding-left: 10px;
+	color: #00f;
+}
+
+#log .answer {
+	color: #000;
+}
+
+#log .error {
+	color: #c00;
+}
+
+#log .aux {
+	color: #006;
+}
+
+.request {
+	color: #608;
+}
+
+.status {
+	color: #c60;
+}
+
+.active {
+	background-color: #f88;
+}
+
+#log {
+	margin: 15px 0 0 10px;
+	width: 45%;
+	float: left;
+	padding: 5px;
+}
+
+.logger {
+	font-size: 70%;
+	color: #080;
+	margin: 0;
+}
+
+#logger {
+	float: right;
+	margin: 30px 10px 10px 10px;
+	background: #ffc;
+	/*width: 300px;*/
+	width: 40%;
+	padding: 5px 0 0 15px;
+	
+	border: 1px solid blue;
+	min-height: 250px;	
+	/* wrap long urls */
+	white-space: pre;           /* CSS 2.0 */
+	white-space: pre-wrap;      /* CSS 2.1 */
+	white-space: pre-line;      /* CSS 3.0 */
+	white-space: -pre-wrap;     /* Opera 4-6 */
+	white-space: -o-pre-wrap;   /* Opera 7 */
+	white-space: -moz-pre-wrap; /* Mozilla */
+	white-space: -hp-pre-wrap;  /* HP Printers */
+	word-wrap: break-word;      /* IE 5+ */
+}
+
+#logger * {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	background: #ffc;
+	font-size: 85%;
+	line-height: 120%;
+
+	word-wrap: break-word;
+}
+
+#logger span {
+	font-size: 100%;
+}
+
+
+#btn_exit {
+	margin: 10px;
+}
+
+button {
+	padding: 3px 8px;
+}
+
+#katime, #kaevents, #kachannels {
+	color: #800000;
+	font-weight: bold;
+}
+
+#kainfo {
+ box-shadow: -3px -3px 3px 0px rgb(255, 255, 240) inset, 
+ 	2px 2px 4px 0px rgb(63, 31, 0) inset, 2px 2px 4px 0px rgb(6, 6, 91);
+ border-width: 1px;
+ border-style: solid;
+ border-color: rgb(0, 63, 127);
+ background-color: rgb(210, 210, 180);
+ border-radius: 20px 20px 20px 20px;
+	margin-left: 30px;
+	padding: 5px 15px 5px 15px ;
+}
+
+button.skip.active {
+  background-color: #ac8c00;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ac8c00), color-stop(50%, #8a5400), color-stop(50%, #713600), color-stop(100%, #763d00));
+  background-image: -webkit-linear-gradient(top, #ac8c00 0%, #8a5400 50%, #713600 50%, #763d00 100%);
+  background-image: -moz-linear-gradient(top, #ac8c00 0%, #8a5400 50%, #713600 50%, #763d00 100%);
+  background-image: -ms-linear-gradient(top, #ac8c00 0%, #8a5400 50%, #713600 50%, #763d00 100%);
+  background-image: -o-linear-gradient(top, #ac8c00 0%, #8a5400 50%, #713600 50%, #763d00 100%);
+  background-image: linear-gradient(top, #ac8c00 0%, #8a5400 50%, #713600 50%, #763d00 100%);
+}
+
+button.skip {
+  background-color: #8c9cbf;
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #8c9cbf), color-stop(50%, #546a9e), color-stop(50%, #36518f), color-stop(100%, #3d5691));
+  background-image: -webkit-linear-gradient(top, #8c9cbf 0%, #546a9e 50%, #36518f 50%, #3d5691 100%);
+  background-image: -moz-linear-gradient(top, #8c9cbf 0%, #546a9e 50%, #36518f 50%, #3d5691 100%);
+  background-image: -ms-linear-gradient(top, #8c9cbf 0%, #546a9e 50%, #36518f 50%, #3d5691 100%);
+  background-image: -o-linear-gradient(top, #8c9cbf 0%, #546a9e 50%, #36518f 50%, #3d5691 100%);
+  background-image: linear-gradient(top, #8c9cbf 0%, #546a9e 50%, #36518f 50%, #3d5691 100%);
+  border: 1px solid #172d6e;
+  border-bottom: 1px solid #0e1d45;
+  border-radius: 5px;
+  -webkit-box-shadow: inset 0 1px 0 0 #b1b9cb;
+  box-shadow: inset 0 1px 0 0 #b1b9cb;
+  color: #fff;
+  font: bold 13px/1 "helvetica neue", helvetica, arial, sans-serif;
+  padding: 5px 0 6px 0;
+  text-decoration: none;
+  text-align: center;
+  text-shadow: 0 -1px 1px #000f4d;
+  width: 100px; }
+  /*button.skip:hover {
+    background-color: #7f8dad;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #7f8dad), color-stop(50%, #4a5e8c), color-stop(50%, #2f477d), color-stop(100%, #364c80));
+    background-image: -webkit-linear-gradient(top, #7f8dad 0%, #4a5e8c 50%, #2f477d 50%, #364c80 100%);
+    background-image: -moz-linear-gradient(top, #7f8dad 0%, #4a5e8c 50%, #2f477d 50%, #364c80 100%);
+    background-image: -ms-linear-gradient(top, #7f8dad 0%, #4a5e8c 50%, #2f477d 50%, #364c80 100%);
+    background-image: -o-linear-gradient(top, #7f8dad 0%, #4a5e8c 50%, #2f477d 50%, #364c80 100%);
+    background-image: linear-gradient(top, #7f8dad 0%, #4a5e8c 50%, #2f477d 50%, #364c80 100%);
+    cursor: pointer; }*/
+  button.skip:active {
+    -webkit-box-shadow: inset 0 0 20px 0 #1d2845, 0 1px 0 white;
+    box-shadow: inset 0 0 20px 0 #1d2845, 0 1px 0 white; }
+
+#editor {
+	display: none;
+	background-color: #eef;
+	position: absolute;
+	width: 650px;
+	height: 440px;
+	padding: 20px;
+}
+#editor textarea {
+	width: 610px;
+	height: 330px;
+	margin: 20px;
+	overflow: auto;
+}
+#editor button {
+	margin: 5px;
+}
+
+/************************ menu **********************/
+#nav,#nav ul {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+#nav {
+    /*background: url('menu_bg.png') no-repeat scroll 0 0 transparent;*/
+    clear: both;
+    font-size: 12px;
+    height: 58px;
+    padding: 0 0 0 9px;
+    position: relative;
+    width: 957px;
+}
+#nav ul {
+    background-color: #222;
+    border:1px solid #222;
+    border-radius: 0 5px 5px 5px;
+    border-width: 0 1px 1px;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.5);
+    left: -9999px;
+    overflow: hidden;
+    position: absolute;
+    top: -9999px;
+    z-index: 2;
+
+    -moz-transform: scaleY(0);
+    -ms-transform: scaleY(0);
+    -o-transform: scaleY(0);
+    -webkit-transform: scaleY(0);
+    transform: scaleY(0);
+
+    /*-moz-transform-origin: 0 0;
+    -ms-transform-origin: 0 0;
+    -o-transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+    transform-origin: 0 0;
+
+    -moz-transition: -moz-transform 0.1s linear;
+    -ms-transition: -ms-transform 0.1s linear;
+    -o-transition: -o-transform 0.1s linear;
+    -webkit-transition: -webkit-transform 0.1s linear;
+    transition: transform 0.1s linear;*/
+}
+#nav li {
+    /*background: url('menu_line.png') no-repeat scroll right 5px transparent;*/
+    float: left;
+    position: relative;
+}
+#nav li a {
+    /*color: #FFFFFF;*/
+    color: #880;
+    display: block;
+    float: left;
+    font-weight: normal;
+    height: 20px;
+    padding: 13px 10px 0;
+    position: relative;
+    text-decoration: none;
+    text-shadow: 1px 1px 1px #000000;
+}
+#nav li:hover > a {
+    color: #00B4FF;
+}
+#nav li:hover, #nav a:focus, #nav a:hover, #nav a:active {
+    background: none repeat scroll 0 0 #121212;
+    outline: 0 none;
+}
+#nav li:hover ul.subs {
+    left: 0;
+    top: 33px;
+    width: 150px;
+
+    -moz-transform: scaleY(1);
+    -ms-transform: scaleY(1);
+    -o-transform: scaleY(1);
+    -webkit-transform: scaleY(1);
+    transform: scaleY(1);
+}
+#nav ul li {
+    background: none;
+    width: 100%;
+}
+#nav ul li a {
+    float: none;
+}
+#nav ul li:hover > a {
+    background-color: #121212;
+    color: #00B4FF;
+}
+#lavalamp {
+    /*background: url('lavalamp.png') no-repeat scroll 0 0 transparent;*/
+    height: 16px;
+    left: 13px;
+    position: absolute;
+    top: 0px;
+    width: 64px;
+
+    -moz-transition: all 300ms ease;
+    -ms-transition: all 300ms ease;
+    -o-transition: all 300ms ease;
+    -webkit-transition: all 300ms ease;
+    transition: all 300ms ease;
+}
+#lavalamp:hover {
+    -moz-transition-duration: 3000s;
+    -ms-transition-duration: 3000s;
+    -o-transition-duration: 3000s;
+    -webkit-transition-duration: 3000s;
+    transition-duration: 3000s;
+}
+
+#nav li:nth-of-type(1):hover ~ #lavalamp {
+    left: 13px;
+}
+#nav li:nth-of-type(2):hover ~ #lavalamp {
+    left: 90px;
+}
+#nav li:nth-of-type(3):hover ~ #lavalamp {
+    left: 170px;
+}
+#nav li:nth-of-type(4):hover ~ #lavalamp {
+    left: 250px;
+}
+#nav li:nth-of-type(5):hover ~ #lavalamp {
+    left: 330px;
+}
+#nav li:nth-of-type(6):hover ~ #lavalamp {
+    left: 410px;
+}
+#nav li:nth-of-type(7):hover ~ #lavalamp {
+    left: 490px;
+}
+#nav li:nth-of-type(8):hover ~ #lavalamp {
+    left: 565px;
+}
+
+/********** LOGIN *******************************************/
+ #login-holder {
+	display: none;
+	width: 240px; 
+	margin: auto;
+	margin-top: 10%;
+  }
+
+  /* The white background content wrapper */
+  #login-holder > #loginbox {
+	clear:both; 
+	height:200px; 
+	position:relative;
+	
+	background-color: #fff;
+	padding: 20px;
+	margin: 0 -10px;
+	-webkit-border-radius: 10px 10px 10px 10px;
+	   -moz-border-radius: 10px 10px 10px 10px;
+			border-radius: 10px 10px 10px 10px;
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+	   -moz-box-shadow: 0 1px 2px rgba(0,0,0,.15);
+			box-shadow: 0 1px 2px rgba(0,0,0,.15);
+  }
+
+  .login-form {
+	margin-left: 80px;
+  }
+	
+#reload {
+	float: right;
+	margin: 5px;
+}
+
+

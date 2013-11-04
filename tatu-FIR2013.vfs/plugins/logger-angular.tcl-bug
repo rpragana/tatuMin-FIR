@@ -1,0 +1,266 @@
+############ logger
+
+#package require tcvJSON
+package require json
+package require json::write
+
+namespace eval logger { 
+	variable tries 
+}
+
+proc logger::escape {s} {
+	set r ""
+	for {set i 0} {$i < [string length $s]} {incr i} {
+		set c [string index $s $i]
+		set d [scan $c %c]
+		if {$d > 127} {
+			append r "\\u[format %04x $d]"
+		} else {
+			append r $c
+		}
+	}
+	return $r
+}
+
+proc logger::dumpProc {p} {
+	set as {}
+	foreach a [info args $p] {
+	    if {[info default $p $a tmp]} {
+		lappend as [list $a $tmp]
+	    } else {
+		lappend as $a
+	    }
+	}
+	return [list proc $p $as [info body $p]]\n
+}
+
+proc logger::readlog {conn} {
+	variable tries
+	after cancel ::logger::readlog $conn
+	if {![llength [info command $conn]]} {
+		#tatu::log "readlog --> CONNECTION $conn doesn't exists anymore"
+		return
+	}
+	set start [$conn queryData start]
+	if {$start eq ""} {
+		set start 0
+	}
+	if {![info exists tries($conn)]} {
+		set tries($conn) 0
+	}
+	if {[llength [lrange $::tatu::logbuf $start end]] <= 0} {
+		if {[incr tries($conn)] < 100} {
+			after 300 [list ::logger::readlog $conn]
+			return
+		}
+	} 
+	unset tries($conn)
+	set j {}
+	foreach item [lrange $::tatu::logbuf $start end] {
+		set s {}
+		lappend s line [lindex $item 0]
+		lappend s msg [json::write string [tatu::escapeChars [lindex $item 1]]]
+		lappend j [eval json::write object $s]
+	}
+	$conn out [eval json::write array $j]
+	$conn respond
+}
+
+proc logger::logger {conn params} {
+	
+	### only allow local connections (or by SSL)
+	if {([$conn hostip] ne "127.0.0.1") && 
+			([$conn hostport] ne $::tatu::server(tlsport))} {
+		$conn outHeader 403 {Content-Type {text/plain}}
+		$conn out "Connection forbidden\n"
+		#return -code return
+		return 
+	}
+
+
+	set cmd [$conn queryData cmd]
+	if {[$conn reqCmd] eq "POST"} {
+		set cmd "eval"
+	}
+	if {$cmd eq ""} { 
+		set cmd "debug"
+	}
+
+	if {$cmd ne "debug"} {
+		#puts "cmd=$cmd"
+		#if {![::users::authenticated $conn "debug"]} { return }
+	}
+	
+	switch -- $cmd {
+	"info" {
+		set s {}
+		lappend s time [json::write string \
+			"[clock format [clock seconds] -format %H:%M:%S]"]
+		lappend s events [json::write string "[llength [after info]]"]
+		lappend s channels [json::write string "[llength [file chan]]"]
+		$conn outHeader 200 {Content-Type {application/json; charset=UTF-8}} 0
+		$conn out "[eval json::write object $s]\n"
+		return
+	}
+	"readlog" {	
+		set start [$conn queryData start]
+		if {$start eq ""} {
+			set start 0
+		}
+		$conn outHeader 200 {Content-Type application/json} 1
+		if {[llength [lrange $::tatu::logbuf $start end]] > 0} {
+			after 300 [list ::logger::readlog $conn]
+		} else {
+			after idle [list ::logger::readlog $conn]
+		}
+	}
+	"toggleHeaders" {
+		set tatu::showHeaders [expr !$tatu::showHeaders]
+		$conn outHeader 200 {Content-Type application/json}
+		$conn out "{}"
+	}
+	"toggleModified" {
+		set tatu::allwaysModified [expr !$tatu::allwaysModified]
+		$conn outHeader 200 {Content-Type application/json}
+		$conn out "{}"
+	}
+	"eval" {
+		if {![::users::authenticated $conn "eval"]} { return }
+		if {$::tcl_platform(platform) eq "unix"} {
+			set input [encoding convertfrom utf-8 [$conn queryData input]]
+		} else {
+			set input [$conn queryData input]
+		}
+		$conn configure -setlength 0
+		
+		set e [catch {uplevel #0 [tatu::unescapeChars $input]} result]
+		if {[$conn queryData format] eq "raw"} {
+			$conn outHeader 200 {Content-Type text/plain}
+			$conn out $result
+			return
+		}
+		
+		### implementation with tcvJSON
+#		set i [tcvJSON::create obj]
+#		tcvJSON::put! -type str i answer [tatu::escapeChars $result]
+#		if {$e} {
+#			tcvJSON::put! -type str i error [tatu::escapeChars $::errorInfo]
+#		}
+#		$conn outHeader 200 {Content-Type application/json}
+#		$conn out [tcvJSON::unparse $i]
+#		return
+		
+		### alternative implementation (without tcvJSON)
+		set i {}
+#		lappend i answer [json::write string [escape $result]]
+		lappend i answer [json::write string $result]
+
+		if {$e} {
+#			lappend i error [json::write string [tatu::escapeChars $::errorInfo]]
+			lappend i error [json::write string $::errorInfo]
+		}
+		$conn outHeader 200 {Content-Type {application/json; charset=UTF-8}}
+		$conn out "[eval json::write object $i]\n"
+	}
+	"flags" {
+		$conn outHeader 200 {Content-Type application/json}
+		set sh [expr $tatu::showHeaders ? "true" : "false"]
+		set am [expr $tatu::allwaysModified ? "true" : "false"]
+		$conn out "{\"showHeaders\": $sh, \"allwaysModified\": $am}"
+	}
+	"debug" {
+		$conn outHeader 200 {Content-Type text/html}
+		$conn out \
+{<!DOCTYPE html>
+<html ng-app="debugApp">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<link href="css/reset.css" type="text/css" rel="stylesheet" />
+<link href="css/bootstrap-combined.min.css" rel="stylesheet" />
+<!--<link rel="stylesheet" href="css/font-awesome.css">-->
+<link href="/css/debug.css" type="text/css" rel="stylesheet" />
+<style>.error { color: #c00; }</style>
+<title>Tatu logger/debugger</title>
+
+<script src="js/jquery.js"></script>
+<script src="js/angular.js"></script>
+<script src="js/ui-bootstrap-tpls.js"></script>
+<script src="js/http-auth-interceptor.js" type="text/javascript"></script>
+<script src="js/debug.js"></script>
+
+
+</head>
+<body ng-controller="debugCtrl" class="">
+
+
+	<div id="login-holder">
+        <div id="loginbox">
+ 
+        <div class="login-inner" ng-controller="LoginController">
+          <h2>Login</h2>
+          <form ng-submit="submit()">
+            <fieldset>
+              <div class="clearfix">
+                <input type="text" placeholder="Username" ng-model="username">
+              </div>
+              <div class="clearfix">
+                <input type="password" placeholder="Password" ng-model="password">
+              </div>
+              <button class="btn primary" type="submit">Sign in</button>
+            </fieldset>
+          </form>
+        </div>
+    
+        </div>
+      </div>
+
+<div id="content">
+        <div id="reload">
+			<a class="btn btn-inverse" ng-click="logout()">Log out</a>
+		</div>
+	
+
+<h1>Tatu Logger/Debugger</h1>
+<span id="kainfo">
+	Updated: <span id="katime"></span>
+	Events: <span id="kaevents"></span>
+	Channels: <span id="kachannels"></span>
+</span>
+<button class="skip" id="btn_exit">exit server</button>
+<button class="skip" id="btn_reload">reload plug</button>
+<button class="skip" id="btn_toggleHeaders">req headers</button>
+<button class="skip" id="btn_toggleModified">don't cache</button>
+<button class="skip" id="btn_clear">clear</button>
+<div id="cmd">
+<textarea></textarea>
+</div>
+
+<!--<div id="logger" ng-controller="loggerCtrl">
+	<pre class="logger" ng-repeat="v in log"
+		>{{v.line}}:<span ng-bind-html-unsafe="v.msg"></span></pre>
+</div>-->
+
+
+<div id="logger" ng-controller="loggerCtrl" ng-model="log" prepender>
+</div>
+
+
+
+<div id="log">
+<pre></pre>
+</div>
+
+</div>
+
+
+
+</body>
+</html>}
+	}
+	}
+}
+
+tatu::addRoute "/log" logger::logger 0 {http}
+
+puts "logger plugin loaded"
+
