@@ -150,6 +150,18 @@ proc users::testUpload {conn parms} {
 	$conn outHeader 200 $headers
 
 	set resultado [$conn queryData sentFile]
+	set filename [$conn queryValue sentFile filename]
+	
+	### armazenamos o conteúdo com o mesmo nome de arquivo
+	### no diretório "uploads" (criado se não existir)
+	set uploadDir [file join [file dirname $::starkit::topdir] uploads]
+	file mkdir $uploadDir
+	set fnpath [file join $uploadDir $filename]
+	set f [open $fnpath w]
+	chan configure $f -translation binary
+	puts $f $resultado 
+	close $f
+	
 	$conn out "RESULTADO=$resultado"
 	$conn out "\n\nCLI-HEADERS=[$conn cliHeaders]\n"
 

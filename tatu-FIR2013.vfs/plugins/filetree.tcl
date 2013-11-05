@@ -6,7 +6,7 @@ package require json::write
 ######  URI encoding/decoding
 #
 # Encode all except "unreserved" characters; use UTF-8 for extended chars.
-# See http://tools.ietf.org/html/rfc3986 ÃÂ§2.4 and ÃÂ§2.5
+# See http://tools.ietf.org/html/rfc3986
 proc urlEncode {str} {
     #set uStr [encoding convertto utf-8 $str]
     set chRE {[^-A-Za-z0-9._~\n]};		# Newline is special case!
