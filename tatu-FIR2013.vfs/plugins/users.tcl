@@ -43,9 +43,28 @@ proc users::main {conn parms} {
 				}
 			}
 			set json "[eval json::write object $s]"
+		} else {
+			set s {}
+			set sql "select nome, id from users"
+			::users::usersdb eval $sql v {
+				set u {}
+				foreach ix $v(*) {
+					lappend u $ix [json::write string $v($ix)]
+				}
+				lappend s "[eval json::write object $u]"
+			}
+			set json "[eval json::write array $s]"			
 		}
 	}
-	"POST" {
+	"POST" {		
+		### TEST
+#		set headers {Content-Type {application/json; charset=UTF-8}
+#			Cache-control no-cache}
+#		$conn outHeader 200 $headers
+#		$conn out "CLI-HEADERS=[$conn cliHeaders]\n"
+#		$conn out "\nQUERY-NAMES=[$conn queryNames]\n"
+#		return
+		
 		set nome [dict get $d nome]
 		set id [dict get $d id]
 		set sql "insert into users (nome, id) values ('$nome', $id)"
