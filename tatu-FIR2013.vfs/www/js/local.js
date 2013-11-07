@@ -140,7 +140,6 @@ var app = angular.module("rpApp",['ui.bootstrap'])
 		$scope.people = [
 			{nome: "Rildo", idade:"62"},
 			{nome: "Daniel", idade:"12"},
-			{nome: "Fernanda", idade:"57"},
 			{nome: "Julius", idade:"35"}
 		];
 		$scope.add = function(){
