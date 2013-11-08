@@ -346,23 +346,6 @@ app.directive('direc2testDirective',function(){
 });
 */
 
-app.controller("widgetCtrl",function($scope){
-	$scope.visible = true;
-});
-app.directive("myWidget", function() {
-	return {
-		/*template: "<p>{{text}}</p>",*/
-		templateUrl: "partials/widget1.html",
-		/*replace: true,*/
-		link: function(scope, element, attributes) {
-			scope.$watch(attributes.show, function(value){
-				element.css('display', value ? '' : 'none');
-			});
-			scope.text = attributes["myWidget"];
-		}
-	};
-});
-
 //service style, probably the simplest one
 app.service('helloWorldFromService', function() {
     this.sayHello = function() {
@@ -477,3 +460,19 @@ app.directive('testDraggable', function($document) {
       }
     }
 });
+
+app.controller("widgetCtrl",function($scope){
+	$scope.visible = true;
+});
+app.directive("myWidget", function() {
+	return {
+		templateUrl: "partials/widget1.html",
+		link: function(scope, element, attributes) {
+			scope.$watch(attributes.show, function(value){
+				element.css('display', value ? '' : 'none');
+			});
+			scope.frase = attributes.myWidget;
+		}
+	};
+});
+
